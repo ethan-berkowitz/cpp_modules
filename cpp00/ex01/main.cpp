@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 14:52:12 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/18 14:49:43 by eberkowi         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:58:14 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,6 @@ static void	get_input_and_check_for_signal(std::string *input)
 		exit (1);
 }
 
-// make contact stuff private and use getters and setters
-// use constructor when you CREATE the contact!
-
 int main(void)
 {
     PhoneBook phonebook;
@@ -33,11 +30,11 @@ int main(void)
     while (1) {
 		get_input_and_check_for_signal(&input);
 		if (input == "ADD") {
-			add_contact(phonebook.contact);
+			phonebook.add_contact();
 		}
 		else if (input == "SEARCH") {
-			search_contacts(phonebook.contact);
-			receive_index(phonebook.contact);
+			phonebook.search_contacts();
+			phonebook.receive_index();
 		}
 		else if (input == "EXIT")
 			exit (0);

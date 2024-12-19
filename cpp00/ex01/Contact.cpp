@@ -6,61 +6,91 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:53:28 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/18 14:49:29 by eberkowi         ###   ########.fr       */
+/*   Updated: 2024/12/19 11:57:19 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-Contact::Contact(void) {}
-
-static void show_contact(Contact contact, int index)
+Contact::Contact(void) 
 {
-	std::cout << std::setw(10) << index;
-	if (contact.first_name.length() >= 10)
-		std::cout << "|" << contact.first_name.substr(0, 9) << ".";
-	else
-		std::cout << "|" << std::setw(10) << contact.first_name;
-	if (contact.last_name.length() >= 10)
-		std::cout << "|" << contact.last_name.substr(0, 9) << ".";
-	else
-		std::cout << "|" << std::setw(10) << contact.last_name;
-	if (contact.nickname.length() >= 10)
-		std::cout << "|" << contact.nickname.substr(0, 9) << ".";
-	else
-		std::cout << "|" << std::setw(10) << contact.nickname;
-	std::cout << "\n";
+	_first_name = "";
+	_last_name = "";
+	_nickname = "";
+	_phone_number = "";
+	_darkest_secret = "";
+	_index = "";
+	_time_created = 0;
 }
 
-void search_contacts(Contact *contact)
+Contact::~Contact(void) {}
+
+std::string Contact::get_first_name(void)
 {
-	for (int i = 0; i < NUM_OF_CONTACTS; i++) {
-		show_contact(contact[i],i);
-	}
+	return (_first_name);
 }
 
-static void print_contact(Contact contact)
+std::string Contact::get_last_name(void)
 {
-	std::cout << "First Name: " << contact.first_name << "\n";
-	std::cout << "Last Name: " << contact.last_name << "\n";
-	std::cout << "Nickname: " << contact.nickname << "\n";
-	std::cout << "Phone Number: " << contact.phone_number << "\n";
-	std::cout << "Darkest Secret: " << contact.darkest_secret << "\n";
+	return (_last_name);
 }
 
-void receive_index(Contact *contact)
+std::string Contact::get_nickname(void)
 {
-	std::string input;
+	return (_nickname);
+}
 
-	std::cout << "Enter index: ";
-	std::getline(std::cin, input);
-	if (std::cin.eof())
-		exit (1);
-	for (int i = 0; i < NUM_OF_CONTACTS; i++) {
-		if (input == contact[i].index) {
-			print_contact(contact[i]);
-			return ;
-		}
-	}
-	std::cout << "Not a valid index\n";
+std::string Contact::get_phone_number(void)
+{
+	return (_phone_number);
+}
+
+std::string Contact::get_darkest_secret(void)
+{
+	return (_darkest_secret);
+}
+
+std::string Contact::get_index(void)
+{
+	return (_index);
+}
+
+std::time_t Contact::get_time_created(void)
+{
+	return (_time_created);
+}
+
+void Contact::set_first_name(std::string first_name)
+{
+	_first_name = first_name;
+}
+
+void Contact::set_last_name(std::string last_name)
+{
+	_last_name = last_name;
+}
+
+void Contact::set_nickname(std::string nickname)
+{
+	_nickname = nickname;
+}
+
+void Contact::set_phone_number(std::string phone_number)
+{
+	_phone_number = phone_number;
+}
+
+void Contact::set_darkest_secret(std::string darkest_secret)
+{
+	_darkest_secret = darkest_secret;
+}
+
+void Contact::set_index(std::string index)
+{
+	_index = index;
+}
+
+void Contact::set_time_created(std::time_t time_created)
+{
+	_time_created = time_created;
 }

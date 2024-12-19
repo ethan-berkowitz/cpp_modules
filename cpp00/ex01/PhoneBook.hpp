@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:54:39 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/18 12:21:55 by eberkowi         ###   ########.fr       */
+/*   Updated: 2024/12/19 12:12:29 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,16 @@
 
 class PhoneBook
 {
+	private:
+	
+		Contact contact[NUM_OF_CONTACTS];
+		
     public:
-	PhoneBook();
-        Contact contact[NUM_OF_CONTACTS];
-};
+	
+		PhoneBook(void);
+		~PhoneBook(void);
 
-void add_contact(Contact *contact);
+		void add_contact(void);
+		void search_contacts(void);
+		void receive_index(void);
+};
