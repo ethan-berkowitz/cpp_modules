@@ -6,11 +6,13 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:46:18 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/01/08 12:38:02 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/08 13:58:45 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
+
+// cpp00 ----------------------------------------------------------------------
 
 const int Fixed::_bits = 8;
 
@@ -39,6 +41,8 @@ Fixed& Fixed::operator = (Fixed const &other) {
 int	Fixed::getRawBits(void) const{
 	return (_RawBits);
 }
+
+// cpp01 ----------------------------------------------------------------------
 
 Fixed::Fixed(const int n) {
 	std::cout << "Int constructor called\n";
