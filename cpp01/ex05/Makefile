@@ -6,12 +6,12 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2024/12/18 12:03:05 by eberkowi         ###   ########.fr        #
+#    Updated: 2024/12/30 17:20:08 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = harl
-FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
+FLAGS = -Wall -Wextra -Werror -std=c++11
 INFILES = 	main.cpp \
 			Harl.cpp
 

@@ -1,33 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.h                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 15:16:24 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/12 10:03:54 by eberkowi         ###   ########.fr       */
+/*   Created: 2024/12/31 11:45:51 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/01/06 13:20:45 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "Fixed.hpp"
 
-# include <iostream>
-
-class Zombie
-{
-    private:
+int	main(void) {
+	Fixed a;
+	Fixed b(a);
+	Fixed c;
 	
-		std::string _name;
+	c = b;
 	
-	public:
+	std::cout << a.getRawBits() << std::endl;
+	std::cout << b.getRawBits() << std::endl;
+	std::cout << c.getRawBits() << std::endl;
 	
-		void	set_name(std::string name);
-		void	announce(void);
-
-		Zombie(void);
-		Zombie(std::string name);
-		~Zombie(void);
-};
-
-Zombie *zombieHorde(int N, std::string name);
+	return (0);
+}

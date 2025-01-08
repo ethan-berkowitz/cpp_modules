@@ -6,16 +6,14 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2024/12/30 17:57:59 by eberkowi         ###   ########.fr        #
+#    Updated: 2024/12/31 12:07:51 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = unnesessary_violence
-FLAGS = -Wall -Wextra -Werror -std=c++11 -fsanitize=address -g #REMOVE
+NAME = my_first_class
+FLAGS = -Wall -Wextra -Werror -std=c++11
 INFILES = 	main.cpp \
-			Weapon.cpp \
-			HumanA.cpp \
-			HumanB.cpp
+			Fixed.cpp
 
 OBJFILES = $(INFILES:.cpp=.o)
 

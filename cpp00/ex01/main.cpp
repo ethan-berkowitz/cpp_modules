@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 14:52:12 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/19 11:58:14 by eberkowi         ###   ########.fr       */
+/*   Updated: 2024/12/19 13:14:38 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,5 @@ int main(void)
 			std::cout << "Invalid command. Enter ADD, SEARCH, or EXIT\n";
 		input = "";
     }
+	return (0);
 }

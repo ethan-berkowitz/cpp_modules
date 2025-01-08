@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/03 15:16:24 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/19 12:12:57 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/07 14:42:33 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 class Contact
 {
     private:
+
         std::string _first_name;
         std::string _last_name;
         std::string _nickname;
@@ -26,9 +27,12 @@ class Contact
         std::string _darkest_secret;
         std::string _index;
 		std::time_t _time_created;
+
 	public:
+
 		Contact(void);
 		~Contact(void);
+
 		std::string get_first_name(void);
 		std::string get_last_name(void);
 		std::string get_nickname(void);

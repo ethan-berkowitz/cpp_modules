@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 11:19:08 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/18 12:01:28 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/06 11:17:45 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	check_for_incorrect_number_of_args(int argc)
 {
 	if (argc != 4)
 	{
-		std::out << " Error: Incorrect number of arguments\n";
+		std::cout << "Error: Incorrect number of arguments\n";
 		exit (1);
 	}	
 }
@@ -27,13 +27,11 @@ static void	copy_infile_to_string(std::string infile_name, std::string *infile_s
 	char c;
 
 	std::ifstream infile(infile_name);
-	if (!infile)
-	{
+	if (!infile) {
 		std::cout << "Error: Cannot open file\n";
 		exit (1);
 	}	
-	while (infile.get(c))
-	{
+	while (infile.get(c)) {
 		*infile_string += c;
 	}
 	infile.close();
@@ -42,7 +40,7 @@ static void	copy_infile_to_string(std::string infile_name, std::string *infile_s
 static void	check_for_empty_strings(char *argv[])
 {
 	if (!argv[1][0] || !argv[2][0] || !argv[3][0]) {
-		std::out << "Error: Strings cannot be empty\n";
+		std::cout << "Error: Strings cannot be empty\n";
 		exit (1);
 	}
 }
@@ -66,8 +64,7 @@ int main(int argc, char *argv[])
 	copy_infile_to_string(argv[1], &infile_string);
 
 	std::ofstream outfile((std::string)argv[1] + ".replace");
-	if (!outfile)
-	{
+	if (!outfile) {
 		std::cout << "Error: Cannot create file\n";
 		return (1);
 	}

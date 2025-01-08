@@ -6,11 +6,11 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:57:35 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/17 12:31:32 by eberkowi         ###   ########.fr       */
+/*   Updated: 2024/12/30 17:17:59 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.h"
+#include "Zombie.hpp"
 
 void Zombie::set_name(std::string name) {
 	this->_name = name;

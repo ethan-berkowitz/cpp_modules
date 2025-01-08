@@ -5,27 +5,32 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 15:48:02 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/01/06 11:28:05 by eberkowi         ###   ########.fr       */
+/*   Created: 2024/12/31 11:45:51 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/01/08 12:32:47 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Harl.hpp"
+#include "Fixed.hpp"
+#include <iostream>
 
-int main(void)
-{
-	Harl harl;
+int main(void) {
 	
-	std::cout << "-----------DEBUG-----------\n";
-	harl.complain("DEBUG");
-	std::cout << "-----------INFO------------\n";
-	harl.complain("INFO");
-	std::cout << "----------WARNING----------\n";
-	harl.complain("WARNING");
-	std::cout << "-----------ERROR-----------\n";
-	harl.complain("ERROR");
-	std::cout << "----------INVALID----------\n";
-	harl.complain("INVALID_LEVEL");
+	Fixed a;
+	Fixed const b(10);
+	Fixed const c(42.42f);
+	Fixed const d(b);
+
+	a = Fixed(1234.4321f);
+
+	std::cout << "a is " << a << std::endl;
+	std::cout << "b is " << b << std::endl;
+	std::cout << "c is " << c << std::endl;
+	std::cout << "d is " << d << std::endl;
+
+	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
+	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 
 	return (0);
 }

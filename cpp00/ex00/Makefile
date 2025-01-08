@@ -6,13 +6,13 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/27 11:40:14 by eberkowi          #+#    #+#              #
-#    Updated: 2024/12/18 12:21:09 by eberkowi         ###   ########.fr        #
+#    Updated: 2025/01/07 11:25:03 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = megaphone
-FLAGS = -Wall -Wextra -Werror -std=c++11 -pedantic
-INFILES = 	megaphone.cpp
+FLAGS = -Wall -Wextra -Werror -std=c++11
+INFILES = megaphone.cpp
 OBJFILES = $(INFILES:.cpp=.o)
 
 all: $(NAME)

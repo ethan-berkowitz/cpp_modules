@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Zombie.h                                           :+:      :+:    :+:   */
+/*   Fixed.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/03 15:16:24 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/12 09:57:50 by eberkowi         ###   ########.fr       */
+/*   Created: 2024/12/31 11:46:14 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/01/07 11:47:29 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,19 @@
 
 # include <iostream>
 
-class Zombie
+class Fixed
 {
-    private:
-	
-		std::string _name;
-	
+	private:
+
+		int _RawBits;
+		const static int _bits;
+		
 	public:
-	
-		void	set_name(std::string name);
-		void	announce(void);
 
-		Zombie(void);
-		Zombie(std::string name);
-		~Zombie(void);
+		Fixed(void);
+		Fixed(Fixed const &other);
+		~Fixed(void);
+
+		Fixed& operator = (Fixed const &other);
+		int	getRawBits(void) const;
 };
-
-Zombie* newZombie(std::string name);
-void	randomChump(std::string name);

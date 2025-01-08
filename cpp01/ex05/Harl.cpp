@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 10:49:19 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/17 11:46:27 by eberkowi         ###   ########.fr       */
+/*   Updated: 2024/12/30 15:23:18 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,7 @@ void Harl::complain(std::string level) {
 	void (Harl::*fptr[4])() = {&Harl::_debug, &Harl::_info, &Harl::_warning, &Harl::_error};
 
 	for(size_t i = 0; i < 4; i++) {
-		if (level == level_array[i])
-		{
+		if (level == level_array[i]) {
 			(this->*fptr[i])();
 			return ;
 		}

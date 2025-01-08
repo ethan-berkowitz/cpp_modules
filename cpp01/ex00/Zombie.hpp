@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/04 13:56:23 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/30 17:44:13 by eberkowi         ###   ########.fr       */
+/*   Created: 2024/12/03 15:16:24 by eberkowi          #+#    #+#             */
+/*   Updated: 2024/12/30 17:17:01 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#pragma once
 
-int main(void)
+# include <iostream>
+
+class Zombie
 {
-	Zombie *new_zombie;
-	randomChump("Stacky");
-	new_zombie = newZombie("Heapy");
-	new_zombie->announce();
-	delete new_zombie;
-}
+    private:
+	
+		std::string _name;
+	
+	public:
+	
+		void	set_name(std::string name);
+		void	announce(void);
+
+		Zombie(void);
+		Zombie(std::string name);
+		~Zombie(void);
+};
+
+Zombie* newZombie(std::string name);
+void	randomChump(std::string name);

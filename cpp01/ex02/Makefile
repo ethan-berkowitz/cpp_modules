@@ -6,12 +6,12 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2024/12/18 12:03:33 by eberkowi         ###   ########.fr        #
+#    Updated: 2024/12/30 17:19:34 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = hi_this_is_brain
-FLAGS = -Wall -Wextra -Werror -std=c++98 -pedantic
+FLAGS = -Wall -Wextra -Werror -std=c++11
 INFILES = main.cpp
 
 OBJFILES = $(INFILES:.cpp=.o)
