@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 11:40:09 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/01/07 11:25:59 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:43:34 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,6 @@ int main(int argc, char *argv[])
 			std::cout << (char)std::toupper(argv[i][j]);
 		}
 	}
+	
 	return (0);
 }

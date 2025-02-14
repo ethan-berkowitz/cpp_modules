@@ -6,12 +6,11 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:45:51 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/01/08 13:41:16 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/10 13:34:36 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-#include <iostream>
 
 int main(void) {
 	

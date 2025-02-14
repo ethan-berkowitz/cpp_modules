@@ -6,14 +6,14 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/04 13:56:23 by eberkowi          #+#    #+#             */
-/*   Updated: 2024/12/31 09:55:25 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:34:38 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include <iostream>
 
 int main(void) {
-	std::string str = "HI THIS IS BRAIN";
+	std::string str = "HI THIS IS BRAIN"; 
 	std::string *stringPTR = &str; 
 	std::string &stringREF = str;
 

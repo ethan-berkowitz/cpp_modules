@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/31 11:46:14 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/01/08 15:19:29 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:16:04 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ class Fixed
 		~Fixed(void);
 
 		int	getRawBits(void) const;
+		void setRawBits(int const raw);
 		float toFloat(void) const;
 		int toInt(void) const;
 
