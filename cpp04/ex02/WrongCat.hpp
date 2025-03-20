@@ -1,31 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   WrongCat.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/12 11:26:16 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:31:50 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 # include <iostream>
-# include "ClapTrap.hpp"
+# include "WrongAnimal.hpp"
 
-class ScavTrap : public ClapTrap
+class WrongCat : public WrongAnimal
 {	
 	public:
 
-		ScavTrap(void);
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap &other);
-		~ScavTrap(void);
+		WrongCat(void);
+		WrongCat(const WrongCat &other);
+		~WrongCat(void);
 
-		ScavTrap& operator = (ScavTrap const &other);
+		WrongCat& operator = (WrongCat const &other);
 
-		void	guardGate();
-		void	attack(const std::string& target);
+		void	makeSound(void) const;
 };

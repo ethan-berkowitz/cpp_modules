@@ -25,5 +25,5 @@ class Dog : public Animal
 
 		Dog& operator = (Dog const &other);
 
-		virtual void	makeSound(void) const;
+		void	makeSound(void) const;
 };

@@ -1,33 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:46 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/12 10:44:55 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:14:27 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "AAnimal.hpp"
 
 // Constructors, Destructors, and Assignment Operators
 
-Animal::Animal(void) : _type("Animal") {
-	std::cout << "Animal default contructor called\n";
+AAnimal::AAnimal(void) : _type("AAnimal") {
+	std::cout << "AAnimal default contructor called\n";
 }
 
-Animal::Animal(const Animal &other) : _type(other._type) {
-	std::cout << "Animal copy constructor called\n";
+AAnimal::AAnimal(const AAnimal &other) : _type(other._type) {
+	std::cout << "AAnimal copy constructor called\n";
 }
 
-Animal::~Animal(void) {
-	std::cout << "Animal destructor called\n";
+AAnimal::~AAnimal(void) {
+	std::cout << "AAnimal destructor called\n";
 }
 
-Animal& Animal::operator = (Animal const &other) {
-	std::cout << "Animal copy assignment operator called\n";
+AAnimal& AAnimal::operator = (AAnimal const &other) {
+	std::cout << "AAnimal copy assignment operator called\n";
 	if (this != &other) {
 		_type = other._type;
 	}
@@ -36,10 +36,6 @@ Animal& Animal::operator = (Animal const &other) {
 
 // Mandatory Functions
 
-std::string	Animal::getType(void) const {
+std::string	AAnimal::getType(void) const {
 	return (_type);
-}
-
-void	Animal::makeSound(void) const {
-	std::cout << "UNDEFINED ANIMAL NOISE\n";
 }

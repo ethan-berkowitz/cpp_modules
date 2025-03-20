@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:46 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/02/20 15:42:21 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:21:01 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,40 @@
 
 //Constructors and Destructors
 
-ClapTrap::ClapTrap(void) {
-	setHitPoints(10);
-	setEnergyPoints(10);
-	setAttackDamage(0);
+ClapTrap::ClapTrap(void) : _hit_points(10), _energy_points(10), _attack_damage(0) {
 	std::cout << "ClapTrap was constructed\n";
 }
 
-ClapTrap::ClapTrap(std::string name) {
-	setName(name);
-	setHitPoints(10);
-	setEnergyPoints(10);
-	setAttackDamage(0);
+ClapTrap::ClapTrap(std::string name) : _name(name),
+										_hit_points(10),
+										_energy_points(10),
+										_attack_damage(0) {
 	std::cout << "ClapTrap was constructed with name " << name << "\n";
+}
+
+ClapTrap::ClapTrap(std::string name, int hp, int ep, int ad) : _name(name),
+																_hit_points(hp),
+																_energy_points(ep),
+																_attack_damage(ad) {
+	std::cout << "ClapTrap was constructed with name " << name << "\n";
+}
+
+ClapTrap::ClapTrap(const ClapTrap &other) : _name(other._name),
+											_hit_points(other._hit_points),
+											_energy_points(other._energy_points),
+											_attack_damage(other._attack_damage) {
+	std::cout << "ClapTrap copy constructor called\n";
+}
+
+ClapTrap& ClapTrap::operator = (ClapTrap const &other) {
+	std::cout << "ClapTrap copy assignment operator called\n";
+	if (this != &other) {
+		_name = other._name;
+		_hit_points = other._hit_points;
+		_energy_points = other._energy_points;
+		_attack_damage = other._attack_damage;
+	}
+	return (*this);
 }
 
 ClapTrap::~ClapTrap(void) {
@@ -63,28 +84,28 @@ std::string ClapTrap::getName(void) {
 //Mandatory Functions
 
 void ClapTrap::takeDamage(unsigned int amount) {
-	setHitPoints(getHitPoints() - amount);
-	std::cout << "ClapTrap " << getName() << " takes " << amount << " points of damage!\n";
+	_hit_points -= amount;
+	std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage!\n";
 }
 void ClapTrap::beRepaired(unsigned int amount) {
-	if (getEnergyPoints() > 0 && getHitPoints() > 0) {
-		setHitPoints(getHitPoints() + amount);
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "ClapTrap " << getName() << " heals " << amount << " health points!\n";
+	if (_energy_points > 0 && _hit_points > 0) {
+		_hit_points += amount;
+		_energy_points -= 1;
+		std::cout << "ClapTrap " << _name << " heals " << amount << " health points!\n";
 	}
-	else if (getHitPoints() <= 0)
-		std::cout << "ClapTrap " << getName() << " cannot repair. " << getName() << " is dead.\n";
+	else if (_hit_points <= 0)
+		std::cout << "ClapTrap " << _name << " cannot repair. " << _name << " is dead.\n";
 	else
-		std::cout << "ClapTrap " << getName() << " cannot repair. " << getName() << " is low on energy.\n";
+		std::cout << "ClapTrap " << _name << " cannot repair. " << _name << " is low on energy.\n";
 }
 
 void ClapTrap::attack(const std::string& target) {
-	if (getEnergyPoints() > 0 && getHitPoints() > 0) {
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "ClapTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!\n";
+	if (_energy_points > 0 && _hit_points > 0) {
+		_energy_points -= 1;
+		std::cout << "ClapTrap " << _name << " attacks " << target << ", causing " << _attack_damage << " points of damage!\n";
 	}
-	else if (getHitPoints() <= 0)
-		std::cout << "ClapTrap " << getName() << " cannot attack. " << getName() << " is dead.\n";
+	else if (_hit_points <= 0)
+		std::cout << "ClapTrap " << _name << " cannot attack. " << _name << " is dead.\n";
 	else
-		std::cout << "ClapTrap " << getName() << " cannot attack. " << getName() << " is low on energy.\n";
+		std::cout << "ClapTrap " << _name << " cannot attack. " << _name << " is low on energy.\n";
 }

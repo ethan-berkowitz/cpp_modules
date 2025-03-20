@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/02/19 15:23:23 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:28:30 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,10 @@ class ScavTrap : public ClapTrap
 
 		ScavTrap(void);
 		ScavTrap(std::string name);
+		ScavTrap(const ScavTrap &other);
 		~ScavTrap(void);
+
+		ScavTrap& operator = (ScavTrap const &other);
 
 		void	guardGate();
 		void	attack(const std::string& target);

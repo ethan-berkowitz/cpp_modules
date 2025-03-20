@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   WrongAnimal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -10,24 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Animal.hpp"
+#include "WrongAnimal.hpp"
 
 // Constructors, Destructors, and Assignment Operators
 
-Animal::Animal(void) : _type("Animal") {
-	std::cout << "Animal default contructor called\n";
+WrongAnimal::WrongAnimal(void) : _type("WrongAnimal") {
+	std::cout << "WrongAnimal default contructor called\n";
 }
 
-Animal::Animal(const Animal &other) : _type(other._type) {
-	std::cout << "Animal copy constructor called\n";
+WrongAnimal::WrongAnimal(const WrongAnimal &other) : _type(other._type) {
+	std::cout << "WrongAnimal copy constructor called\n";
 }
 
-Animal::~Animal(void) {
-	std::cout << "Animal destructor called\n";
+WrongAnimal::~WrongAnimal(void) {
+	std::cout << "WrongAnimal destructor called\n";
 }
 
-Animal& Animal::operator = (Animal const &other) {
-	std::cout << "Animal copy assignment operator called\n";
+WrongAnimal& WrongAnimal::operator = (WrongAnimal const &other) {
+	std::cout << "WrongAnimal copy assignment operator called\n";
 	if (this != &other) {
 		_type = other._type;
 	}
@@ -36,10 +36,10 @@ Animal& Animal::operator = (Animal const &other) {
 
 // Mandatory Functions
 
-std::string	Animal::getType(void) const {
+std::string	WrongAnimal::getType(void) const {
 	return (_type);
 }
 
-void	Animal::makeSound(void) const {
-	std::cout << "UNDEFINED ANIMAL NOISE\n";
+void	WrongAnimal::makeSound(void) const {
+	std::cout << "UNDEFINED WrongAnimal NOISE\n";
 }

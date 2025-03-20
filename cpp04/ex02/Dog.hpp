@@ -1,31 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   Dog.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/12 11:26:16 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/02/24 11:31:50 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 # include <iostream>
-# include "ClapTrap.hpp"
+# include "AAnimal.hpp"
+# include "Brain.hpp"
 
-class ScavTrap : public ClapTrap
+class Dog : public AAnimal
 {	
+	private:
+
+		Brain* _brain;
+
 	public:
 
-		ScavTrap(void);
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap &other);
-		~ScavTrap(void);
+		Dog(void);
+		Dog(const Dog &other);
+		~Dog(void);
 
-		ScavTrap& operator = (ScavTrap const &other);
+		Dog& operator = (Dog const &other);
 
-		void	guardGate();
-		void	attack(const std::string& target);
+		void	makeSound(void) const;
+		void		setIdea(unsigned int n, std::string idea);
+		std::string	getIdea(unsigned int n);
 };

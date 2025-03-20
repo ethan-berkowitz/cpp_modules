@@ -6,7 +6,7 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2025/03/14 11:06:45 by eberkowi         ###   ########.fr        #
+#    Updated: 2025/03/14 11:15:00 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ INFILES = 	main.cpp \
 			Animal.cpp \
 			Dog.cpp \
 			Cat.cpp \
+			Brain.cpp \
 			WrongAnimal.cpp \
 			WrongCat.cpp
 

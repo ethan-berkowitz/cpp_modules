@@ -1,31 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   AAnimal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/12 11:26:16 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/10 12:14:22 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #pragma once
 
 # include <iostream>
-# include "ClapTrap.hpp"
 
-class ScavTrap : public ClapTrap
-{	
+class AAnimal
+{
+	protected:
+
+		std::string _type;
+		
 	public:
 
-		ScavTrap(void);
-		ScavTrap(std::string name);
-		ScavTrap(const ScavTrap &other);
-		~ScavTrap(void);
+		AAnimal(void);
+		AAnimal(const AAnimal &other);
+		virtual ~AAnimal(void);
 
-		ScavTrap& operator = (ScavTrap const &other);
+		AAnimal& operator = (AAnimal const &other);
 
-		void	guardGate();
-		void	attack(const std::string& target);
+		std::string	getType(void) const;
+		virtual void	makeSound(void) const = 0;
 };

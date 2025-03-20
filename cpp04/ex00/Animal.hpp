@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/02/24 12:11:58 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/14 11:05:38 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,14 @@
 class Animal
 {
 	protected:
-
+	
 		std::string _type;
 		
 	public:
 
 		Animal(void);
 		Animal(const Animal &other);
-		~Animal(void);
+		virtual ~Animal(void);
 
 		Animal& operator = (Animal const &other);
 

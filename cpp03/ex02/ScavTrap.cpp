@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:46 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/02/20 15:53:26 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:28:23 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,30 @@
 
 //Constructors and Destructors
 
-ScavTrap::ScavTrap(void) {
-	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+ScavTrap::ScavTrap(void) : ClapTrap("Default ScavTrap", 100, 50, 20) {
 	std::cout << "ScavTrap was constructed\n";
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
-	setName(name);
-	setHitPoints(100);
-	setEnergyPoints(50);
-	setAttackDamage(20);
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name, 100, 50, 20) {
 	std::cout << "ScavTrap was constructed with name " << name << "\n";
+}
+
+ScavTrap::ScavTrap(const ScavTrap &other) : ClapTrap(other._name, 
+													other._hit_points, 
+													other._energy_points, 
+													other._attack_damage) {
+	std::cout << "ScavTrap copy constructor called\n";
+}
+
+ScavTrap& ScavTrap::operator = (ScavTrap const &other) {
+	std::cout << "ScavTrap copy assignment operator called\n";
+	if (this != &other) {
+		_name = other._name;
+		_hit_points = other._hit_points;
+		_energy_points = other._energy_points;
+		_attack_damage = other._attack_damage;
+	}
+	return (*this);
 }
 
 ScavTrap::~ScavTrap(void) {
@@ -38,12 +49,12 @@ void ScavTrap::guardGate() {
 }
 
 void ScavTrap::attack(const std::string& target) {
-	if (getEnergyPoints() > 0 && getHitPoints() > 0) {
-		setEnergyPoints(getEnergyPoints() - 1);
-		std::cout << "ScavTrap " << getName() << " attacks " << target << ", causing " << getAttackDamage() << " points of damage!\n";
+	if (_energy_points > 0 && _hit_points > 0) {
+		_energy_points -= 1;
+		std::cout << "ScavTrap " << _name << " attacks " << target << ", causing " << _attack_damage << " points of damage!\n";
 	}
-	else if (getHitPoints() <= 0)
-		std::cout << "ScavTrap " << getName() << " cannot attack. " << getName() << " is dead.\n";
+	else if (_hit_points <= 0)
+		std::cout << "ScavTrap " << _name << " cannot attack. " << _name << " is dead.\n";
 	else
-		std::cout << "ScavTrap " << getName() << " cannot attack. " << getName() << " is low on energy.\n";
+		std::cout << "ScavTrap " << _name << " cannot attack. " << _name << " is low on energy.\n";
 }
