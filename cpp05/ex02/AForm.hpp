@@ -1,24 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Form.hpp                                         :+:      :+:    :+:   */
+/*   AForm.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/14 11:05:38 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/03/27 12:09:31 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FORM_HPP
-# define FORM_HPP
+#ifndef AFORM_HPP
+# define AFORM_HPP
 
 # include <iostream>
 # include "Bureaucrat.hpp"
 
 class Bureaucrat;
 
-class Form
+class AForm
 {
 	private:
 	
@@ -29,13 +29,13 @@ class Form
 		
 	public:
 
-		Form(void);
-		Form(const std::string name,
+		AForm(void);
+		AForm(const std::string name,
 			const int required_signing_grade,
 			const int required_execution_grade);
-		Form(const Form &other);
-		Form& operator = (Form const &other);
-		~Form(void);
+		AForm(const AForm &other);
+		AForm& operator = (AForm const &other);
+		virtual ~AForm(void);
 
 		//Mandatory
 
@@ -44,6 +44,7 @@ class Form
 		int getRequiredSigningGrade(void);
 		int getRequiredExecutionGrade(void);
 		void beSigned(Bureaucrat &bureaucrat);
+		virtual void execute(Bureaucrat const & executor) const = 0;
 
 		// Exception Classes
 
@@ -67,6 +68,6 @@ class Form
 };
 
 //Operator Overload
-std::ostream &operator<<(std::ostream &os, Form &other);
+std::ostream &operator<<(std::ostream &os, AForm &other);
 
 #endif
