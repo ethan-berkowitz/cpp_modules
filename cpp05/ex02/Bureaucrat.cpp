@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:46 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/27 11:56:37 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:09:26 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ Bureaucrat& Bureaucrat::operator = (Bureaucrat const &other) {
 
 //Mandatory
 
-std::string	Bureaucrat::getName(void) {
+std::string	Bureaucrat::getName(void) const{
 	return (_name);
 }
 
-int Bureaucrat::getGrade(void) {
+int Bureaucrat::getGrade(void) const{
 	return (_grade);
 }
 
@@ -69,13 +69,26 @@ void Bureaucrat::signForm(AForm &form) {
 		std::cout << _name << " couldn't sign " << form.getName() << " because " << e.what() << "\n";
 		return ;
 	}
-	std::cout << _name << " signed " << form.getName() << "\n";
+	std::cout << _name << " signed " << form.getName() <<"\n" ;
+}
+
+void Bureaucrat::executeForm(AForm const & form) {
+	try
+	{
+		form.execute(*this);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+		return ;
+	}
+	std::cout << _name << " executed " << form.getName() << "\n";
 }
 
 // Operator Overload
 
 std::ostream &operator<<(std::ostream &os, Bureaucrat &other)
 {
-	os << other.getName() << ", bureaucrat grade " << other.getGrade() << std::endl;
+	os << other.getName() << ", bureaucrat grade " << other.getGrade() << "\n";
 	return (os);
 }

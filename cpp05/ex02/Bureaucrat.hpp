@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/27 12:09:35 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/27 16:37:28 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ class Bureaucrat
 
 
 		// Mandatory
-		std::string	getName(void);
-		int getGrade(void);
+		std::string	getName(void) const;
+		int getGrade(void) const;
 		void incrementGrade(void);
 		void decrementGrade(void);
-
 		void signForm(AForm &form);
+		void executeForm(AForm const & form);
 
 		// Exception Classes
 		class GradeTooHighException : public std::exception

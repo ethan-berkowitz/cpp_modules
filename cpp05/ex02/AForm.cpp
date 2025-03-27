@@ -48,11 +48,11 @@ AForm& AForm::operator = (AForm const &other) {
 
 //Mandatory
 
-std::string	AForm::getName(void) {
+std::string	AForm::getName(void) const{
 	return (_name);
 }
 
-bool AForm::getIsSigned(void) {
+bool AForm::getIsSigned(void) const{
 	return (_is_signed);
 }
 
@@ -60,7 +60,7 @@ int AForm::getRequiredSigningGrade(void) {
 	return (_required_signing_grade);
 }
 
-int AForm::getRequiredExecutionGrade(void) {
+int AForm::getRequiredExecutionGrade(void) const{
 	return (_required_execution_grade);
 }
 

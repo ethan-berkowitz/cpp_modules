@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm copy.hpp                     :+:      :+:    :+:   */
+/*   RobotomyRequestForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/27 18:26:20 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:10:52 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #pragma once
 
-class ShrubberyCreationForm : public AForm
+class RobotomyRequestForm : public AForm
 {
 	private:
 
@@ -22,11 +22,11 @@ class ShrubberyCreationForm : public AForm
 
 	public:
 
-		ShrubberyCreationForm(void);
-		ShrubberyCreationForm(std::string target);
-		ShrubberyCreationForm(const ShrubberyCreationForm &other);
-		ShrubberyCreationForm& operator = (ShrubberyCreationForm const &other);
-		~ShrubberyCreationForm(void);
+		RobotomyRequestForm(void);
+		RobotomyRequestForm(std::string target);
+		RobotomyRequestForm(const RobotomyRequestForm &other);
+		RobotomyRequestForm& operator = (RobotomyRequestForm const &other);
+		~RobotomyRequestForm(void);
 		
 		//Mandatory
 		

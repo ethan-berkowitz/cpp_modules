@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/27 12:09:31 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:09:51 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ class AForm
 
 		//Mandatory
 
-		std::string	getName(void);
-		bool getIsSigned(void);
+		std::string	getName(void) const;
+		bool getIsSigned(void) const;
 		int getRequiredSigningGrade(void);
-		int getRequiredExecutionGrade(void);
+		int getRequiredExecutionGrade(void) const;
 		void beSigned(Bureaucrat &bureaucrat);
 		virtual void execute(Bureaucrat const & executor) const = 0;
 
@@ -63,6 +63,15 @@ class AForm
 				virtual const char *what() const noexcept
 				{
 					return ("Grade too low!");
+				}
+		};
+
+		class CannotExecuteFormException : public std::exception
+		{
+			public:
+				virtual const char *what() const noexcept
+				{
+					return ("Cannot execute form!");
 				}
 		};
 };

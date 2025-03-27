@@ -6,7 +6,7 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2025/03/27 11:56:37 by eberkowi         ###   ########.fr        #
+#    Updated: 2025/03/27 18:32:47 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,10 @@ NAME = a.out
 FLAGS = -Wall -Wextra -Werror -std=c++11
 INFILES = 	main.cpp \
 			Bureaucrat.cpp \
-			AForm.cpp
+			AForm.cpp \
+			ShrubberyCreationForm.cpp \
+			RobotomyRequestForm.cpp \
+			PresidentialPardonForm.cpp
 OBJFILES = $(INFILES:.cpp=.o)
 
 all: $(NAME)

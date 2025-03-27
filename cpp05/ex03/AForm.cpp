@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   AForm.cpp                                     :+:      :+:    :+:   */
+/*   Form.cpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "AForm.hpp"
-
-// Constructors, Destructors, and Assignment Operators
 
 AForm::AForm(void) : _is_signed(false),
 					_required_signing_grade(1),
@@ -50,7 +48,7 @@ AForm& AForm::operator = (AForm const &other) {
 
 //Mandatory
 
-std::string	AForm::getName(void) {
+std::string	AForm::getName(void) const{
 	return (_name);
 }
 
@@ -62,7 +60,7 @@ int AForm::getRequiredSigningGrade(void) {
 	return (_required_signing_grade);
 }
 
-int AForm::getRequiredExecutionGrade(void) {
+int AForm::getRequiredExecutionGrade(void) const{
 	return (_required_execution_grade);
 }
 
@@ -71,40 +69,6 @@ void AForm::beSigned(Bureaucrat &bureaucrat) {
 		throw GradeTooLowException();
 	else
 		_is_signed = true;
-}
-
-void AForm::setIsSigned(bool is_signed) {
-	_is_signed = is_signed;
-}
-
-void	AForm::execute(Bureaucrat const &executor) const
-{
-	if (!this->_isSigned)
-		throw (Form::FormNotSignedException());
-	else if (executor.getGrade() > this->_signGrade)
-		throw (Form::GradeTooLowException());
-	else
-	{
-		std::cout << executor.getName() << " executes form: " << this->_name << std::endl;
-		this->beExecuted(executor);
-	}
-}
-
-// Exceptions
-
-const char *AForm::GradeTooHighException::what() const throw() {
-	return ("Grade too high!");
-}
-
-const char *AForm::GradeTooLowException::what() const throw() {
-	return ("Grade too low!");
-
-char const	*AForm::FormNotSignedException::what(void) const throw()
-{
-	return ("Form not signed");
-}
-
-
 }
 
 // Operator Overload

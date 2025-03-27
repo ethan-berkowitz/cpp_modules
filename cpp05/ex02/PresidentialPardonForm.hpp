@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   PresidentialPardonForm.hpp                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/26 12:25:49 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/27 17:10:52 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Bureaucrat.hpp"
 #include "AForm.hpp"
-#include "ShrubberyCreationForm.hpp"
 
-int	main(void)
+#pragma once
+
+class PresidentialPardonForm : public AForm
 {
-	// TEST #1
-	std::cout << "\n----- TEST #1 -----\n\n";
-	
-	ShrubberyCreationForm anothershrub("french_castle");
-	std::cout << anothershrub;
-	
-	return (0);
-}
+	private:
+
+		std::string _target;
+
+	public:
+
+		PresidentialPardonForm(void);
+		PresidentialPardonForm(std::string target);
+		PresidentialPardonForm(const PresidentialPardonForm &other);
+		PresidentialPardonForm& operator = (PresidentialPardonForm const &other);
+		~PresidentialPardonForm(void);
+		
+		//Mandatory
+		
+		void execute(Bureaucrat const & executor) const;
+};

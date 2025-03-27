@@ -1,43 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ShrubberyCreationForm.hpp                          :+:      :+:    :+:   */
+/*   ShrubberyCreationForm copy.hpp                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 10:40:28 by cgodecke          #+#    #+#             */
-/*   Updated: 2025/03/26 12:28:31 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/03/27 18:26:20 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SHRUBBERYCREATIONFORM_HPP
-# define SHRUBBERYCREATIONFORM_HPP
-
 #include "AForm.hpp"
-#include <fstream>
+
+#pragma once
 
 class ShrubberyCreationForm : public AForm
 {
 	private:
 
 		std::string _target;
-	
+
 	public:
 
-		ShrubberyCreationForm();
-		ShrubberyCreationForm(const std::string target);
+		ShrubberyCreationForm(void);
+		ShrubberyCreationForm(std::string target);
 		ShrubberyCreationForm(const ShrubberyCreationForm &other);
-		ShrubberyCreationForm &operator=(const ShrubberyCreationForm &other);
-		~ShrubberyCreationForm();
-
-		//Exceptions
+		ShrubberyCreationForm& operator = (ShrubberyCreationForm const &other);
+		~ShrubberyCreationForm(void);
 		
-		class OpenFileExeption : public std::exception
-		{
-			public:
-				virtual const char *what() const throw();
-		};
-
+		//Mandatory
+		
+		void execute(Bureaucrat const & executor) const;
 };
-
-#endif
