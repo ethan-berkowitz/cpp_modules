@@ -34,9 +34,9 @@ class Form
 			const int required_signing_grade,
 			const int required_execution_grade);
 		Form(const Form &other);
+		Form& operator = (Form const &other);
 		~Form(void);
 
-		Form& operator = (Form const &other);
 
 		//Mandatory
 
@@ -48,17 +48,22 @@ class Form
 		void beSigned(Bureaucrat &bureaucrat);
 
 		// Exception Classes
-
 		class GradeTooHighException : public std::exception
 		{
 			public:
-				virtual const char *what() const throw();
+				virtual const char *what() const noexcept
+				{
+					return ("Grade too high!");
+				}
 		};
 
 		class GradeTooLowException : public std::exception
 		{
 			public:
-				virtual const char *what() const throw();
+				virtual const char *what() const noexcept
+				{
+					return ("Grade too low!");
+				}
 		};
 };
 

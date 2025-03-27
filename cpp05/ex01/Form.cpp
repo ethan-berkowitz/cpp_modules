@@ -12,8 +12,6 @@
 
 #include "Form.hpp"
 
-// Constructors, Destructors, and Assignment Operators
-
 Form::Form(void) : _is_signed(false),
 					_required_signing_grade(1),
 					_required_execution_grade(1) {}
@@ -71,16 +69,6 @@ void Form::beSigned(Bureaucrat &bureaucrat) {
 		throw GradeTooLowException();
 	else
 		_is_signed = true;
-}
-
-// Exceptions
-
-const char *Form::GradeTooHighException::what() const throw() {
-	return ("Grade too high!");
-}
-
-const char *Form::GradeTooLowException::what() const throw() {
-	return ("Grade too low!");
 }
 
 // Operator Overload

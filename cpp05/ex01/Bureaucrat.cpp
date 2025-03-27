@@ -6,13 +6,11 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:55:46 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/24 12:24:41 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/27 11:50:00 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Bureaucrat.hpp"
-
-// Constructors, Destructors, and Assignment Operators
 
 Bureaucrat::Bureaucrat(void) {}
 
@@ -72,16 +70,6 @@ void Bureaucrat::signForm(Form &form) {
 		return ;
 	}
 	std::cout << _name << " signed " << form.getName() << "\n";
-}
-
-// Exceptions
-
-const char *Bureaucrat::GradeTooHighException::what() const throw() {
-	return ("Grade too high!");
-}
-
-const char *Bureaucrat::GradeTooLowException::what() const throw() {
-	return ("Grade too low!");
 }
 
 // Operator Overload
