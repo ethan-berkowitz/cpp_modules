@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/14 10:57:03 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/21 12:17:47 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/03/31 09:37:34 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,24 @@ int	main(void)
 	
 	std::cout << "\n";
 
-	// TEST #3: EXCEPTIONS
-	std::cout << "----- TEST #3: EXCEPTIONS -----\n\n";
+	// TEST #2: EXCEPTIONS
+	std::cout << "----- TEST #2: EXCEPTIONS -----\n\n";
 
+	// 1
 	try {
 		Bureaucrat Kevin("Kevin", 0);
 	}
 	catch(const std::exception &e) {
 		std::cerr << "Exception caught " << e.what() << "\n";
 	}
+	// 2
 	try {
 		Bureaucrat Keleven("Keleven", 151);
 	}
 	catch(const std::exception &e) {
 		std::cerr << "Exception caught " << e.what() << "\n";
 	}
-	
+	// 3
 	Bureaucrat Nerd("Nerd", 1);
 	try {
 		Nerd.incrementGrade();
@@ -54,7 +56,7 @@ int	main(void)
 	catch(const std::exception &e) {
 		std::cerr << "Exception caught " << e.what() << "\n";
 	}
-	
+	// 4
 	Bureaucrat Coolguy("Coolguy", 150);
 	try {
 		Coolguy.decrementGrade();
