@@ -6,9 +6,12 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:22:45 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/01 13:41:40 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/04/02 11:17:38 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef BASE_HPP
+# define BASE_HPP
 
 class Base
 {
@@ -16,3 +19,5 @@ class Base
 
 		virtual ~Base();
 };
+
+#endif
