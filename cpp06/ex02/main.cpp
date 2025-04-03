@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/01 13:24:18 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/02 11:26:55 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/04/03 09:54:43 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void identify(Base &p)
 
 int main(void)
 {
-	srand(time(NULL));
+	srand(time(0));
 	Base *ptr = generate();
 	Base &ref = *ptr;
 	identify(ptr);
