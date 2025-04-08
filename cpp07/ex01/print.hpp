@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                         :+:      :+:    :+:   */
+/*   print.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/14 11:05:38 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/04/03 10:09:51 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/04/03 10:44:36 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,8 @@
 
 # include <iostream>
 
-class ScalarConverter
+template <typename T>
+void print(T input)
 {
-	private:
-
-		ScalarConverter(void);
-		ScalarConverter(const ScalarConverter &other);
-		ScalarConverter& operator = (ScalarConverter const &other);
-		~ScalarConverter(void);
-
-	public:
-
-		static void	convert(std::string input);
-};
+	std::cout << input << std::endl;
+}

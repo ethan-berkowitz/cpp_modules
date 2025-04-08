@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScalarConverter.hpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/14 10:55:48 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/03/14 11:05:38 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/04/03 10:09:18 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/04/03 10:44:54 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "swap.hpp"
+#include "iter.hpp"
+#include "print.hpp"
 
-# include <iostream>
 
-class ScalarConverter
+int main( void )
 {
-	private:
+	int arr[5] = {1, 2, 3, 4, 5};
 
-		ScalarConverter(void);
-		ScalarConverter(const ScalarConverter &other);
-		ScalarConverter& operator = (ScalarConverter const &other);
-		~ScalarConverter(void);
+	::iter(&arr, 5, ::print);
 
-	public:
-
-		static void	convert(std::string input);
-};
+	return 0;
+}

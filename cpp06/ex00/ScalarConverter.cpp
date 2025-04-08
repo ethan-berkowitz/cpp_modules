@@ -6,50 +6,45 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 10:15:06 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/01 11:22:26 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:24:56 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ScalarConverter.hpp"
+#include "check_type.hpp"
+#include "conversions.hpp"
 
-static void convert_char_and_int(std::string input)
-{
-	try {
-		int i = std::stoi(input);
-		if (i >= 32 && i <= 126)
-			std::cout << "char: " << (char)i << std::endl;
-		else
-			std::cout << "char: Non Displayable" << std::endl;
-		std::cout << "int: " << i << std::endl;
-	} catch (const std::exception &e) {
-		std::cout << "char: impossible" << std::endl;
-		std::cout << "int: impossible" << std::endl;
-	}	
+ScalarConverter::ScalarConverter(void) {}
+
+ScalarConverter::ScalarConverter(const ScalarConverter &other) {
+	*this = other;
 }
 
-static void convert_float(std::string input)
-{
-	try {
-		float f = std::stof(input);
-		std::cout << "float: " << f << "f" << std::endl;
-	} catch (const std::exception &e) {
-		std::cout << "float: impossible" << std::endl;
-	}
+ScalarConverter& ScalarConverter::operator = (ScalarConverter const &other) {
+	(void)other;
+	return (*this);
 }
 
-static void convert_double(std::string input)
-{
-	try {
-		double d = std::stod(input);
-		std::cout << "double: " << d << std::endl;
-	} catch (const std::exception &e) {
-		std::cout << "double: impossible" << std::endl;
-	}	
-}
+ScalarConverter::~ScalarConverter(void) {}
+
+// Mandatory
 
 void ScalarConverter::convert(std::string input)
 {
-	convert_char_and_int(input);
-	convert_float(input);
-	convert_double(input);
+	size_t len = input.length();
+
+	if (contains_unprintable_char(input, len))
+		convert_unprintable();
+	else if (is_special(input))
+		convert_special(input);
+	else if (is_char(input, len))
+		convert_char(input);
+	else if (is_int(input, len))
+		convert_int(input);
+	else if (is_double(input, len))
+		convert_double(input);
+	else if (is_float(input, len))
+		convert_float(input);
+	else
+		convert_impossible();
 }
