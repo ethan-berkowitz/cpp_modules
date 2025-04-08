@@ -19,8 +19,8 @@ class ScalarConverter
 	private:
 
 		ScalarConverter(void);
-		ScalarConverter(const ScalarConverter &other);
-		ScalarConverter& operator = (ScalarConverter const &other);
+		ScalarConverter(const ScalarConverter &other) = delete;
+		ScalarConverter& operator = (ScalarConverter const &other) = delete;
 		~ScalarConverter(void);
 
 	public:

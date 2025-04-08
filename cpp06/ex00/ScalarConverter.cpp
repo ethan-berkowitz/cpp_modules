@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/31 10:15:06 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/08 11:24:56 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/04/08 11:49:32 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,6 @@
 #include "conversions.hpp"
 
 ScalarConverter::ScalarConverter(void) {}
-
-ScalarConverter::ScalarConverter(const ScalarConverter &other) {
-	*this = other;
-}
-
-ScalarConverter& ScalarConverter::operator = (ScalarConverter const &other) {
-	(void)other;
-	return (*this);
-}
 
 ScalarConverter::~ScalarConverter(void) {}
 

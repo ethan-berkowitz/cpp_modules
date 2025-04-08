@@ -18,7 +18,15 @@
 
 class Serializer
 {
+	private:
+
+		Serializer(void);
+		Serializer(const Serializer &other) = delete;
+		Serializer& operator = (Serializer const &other) = delete;
+		~Serializer(void);
+
 	public:
+
 		static uintptr_t serialize(Data* ptr);
 		static Data* deserialize(uintptr_t raw);
 };
