@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/03 10:09:51 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/03 11:26:18 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/04/15 11:14:26 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,8 @@
 # include <iostream>
 
 template <typename T>
-void iter(T *address, int length, void (*func)())
+void iter(T* address, unsigned int length, void (*func)(T))
 {
-	for (i = 0; i < lengthl i++)
-	{
-		func(*address[i]);
-	}
+    for (unsigned int i = 0; i < length; i++)
+        func(address[i]);
 }

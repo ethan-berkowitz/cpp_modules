@@ -6,14 +6,13 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2025/04/09 12:35:38 by eberkowi         ###   ########.fr        #
+#    Updated: 2025/04/15 11:24:53 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = convert
-FLAGS = -Wall -Wextra -Werror -std=c++11 -g
-INFILES = 	main.cpp \
-			ScalarConverter.cpp
+NAME = array
+FLAGS = -Wall -Wextra -Werror -std=c++11
+INFILES = 	main.cpp
 OBJFILES = $(INFILES:.cpp=.o)
 
 all: $(NAME)
