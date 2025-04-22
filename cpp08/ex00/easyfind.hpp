@@ -1,22 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter.hpp                                           :+:      :+:    :+:   */
+/*   easyfind.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 10:09:51 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/22 11:33:18 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/04/22 11:56:33 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
-
-# include <iostream>
-
 template <typename T>
-void iter(T *address, unsigned int length, void (*func)(T))
-{
-    for (unsigned int i = 0; i < length; i++)
-        func(address[i]);
+int easyfind(T *container, T to_find) {
+	(void)container;
+	(void)to_find;
+
+	return (0);
 }

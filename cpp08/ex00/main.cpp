@@ -1,22 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   iter.hpp                                           :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 10:09:51 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/22 11:33:18 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/04/22 11:48:43 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/04/22 12:31:21 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include <vector>
+#include "easyfind.hpp"
 
-# include <iostream>
-
-template <typename T>
-void iter(T *address, unsigned int length, void (*func)(T))
+int main(void)
 {
-    for (unsigned int i = 0; i < length; i++)
-        func(address[i]);
+	std::vector<int> v = {1, 2, 3, 4, 5};
+
+	easyfind(v, 2);
 }

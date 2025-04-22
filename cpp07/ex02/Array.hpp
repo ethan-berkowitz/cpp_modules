@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 20:50:27 by mroux             #+#    #+#             */
-/*   Updated: 2025/04/15 11:28:39 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/04/16 11:38:27 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ template <class T>
 class Array
 {
 	public:
+
 		Array();
 		Array(unsigned int i);
 		~Array();
@@ -29,6 +30,7 @@ class Array
 		unsigned int	size() const;
 
 	protected:
+
 		T				*_arr;
 		unsigned int	_size;
 };
@@ -41,7 +43,7 @@ std::ostream&	operator<<(std::ostream& stream, Array<T>const& cl);
 template <class T>
 Array<T>::Array()
 {
-	_arr = new T[0];
+	_arr = NULL;
 	_size = 0;
 }
 
@@ -49,13 +51,10 @@ Array<T>::Array()
 template <class T>
 Array<T>::Array(unsigned int n)
 {
-	T*	init = new T();
-
 	_size = n;
 	_arr = new T[_size];
 	for (unsigned int i = 0; i < _size; i++)
-		_arr[i] = *init;
-	delete init;
+		_arr[i] = T();
 }
 
 // Destructor
