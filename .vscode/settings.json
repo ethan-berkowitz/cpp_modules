@@ -78,6 +78,7 @@
 		"ios": "cpp",
 		"locale": "cpp",
 		"mutex": "cpp",
-		"stack": "cpp"
+		"stack": "cpp",
+		"list": "cpp"
 	}
 }

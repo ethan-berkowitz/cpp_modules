@@ -1,21 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.hpp                                           :+:      :+:    :+:   */
+/*   Span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 10:09:51 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:07 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/05/12 12:21:34 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/05/12 12:29:37 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include "Span.hpp"
 
-template <typename T>
-void swap(T &a, T &b)
+Span::Span(void) : N(0) {}
+
+Span::Span(unsigned int N) : N(N) 
 {
-	T temp = a;
-	a = b;
-	b = temp;
+	this->vector.resize(N);
 }
+
+Span::Span(const Span &other) : N(other.N)
+{
+	this->vector.resize(N);
+}
+
+Span& Span::operator = (Span const &other)
+{
+	if (this != &other)
+		N = other.N;
+	return (*this);
+}
+
+Span::~Span(void) {}

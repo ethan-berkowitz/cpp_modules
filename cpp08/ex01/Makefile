@@ -6,11 +6,11 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2025/05/08 11:29:46 by eberkowi         ###   ########.fr        #
+#    Updated: 2025/05/12 12:15:06 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ex02_array
+NAME = easy_find
 FLAGS = -Wall -Wextra -Werror -std=c++11
 INFILES = 	main.cpp
 OBJFILES = $(INFILES:.cpp=.o)

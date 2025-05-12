@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/15 11:25:01 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/04/16 11:48:29 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:01:43 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ int main(void)
 		}
 	}
 	{
-		
 		std::cout << "\n----------------------\n";
 		std::cout << "-----TYPE IS CHAR-----\n";
 		std::cout << "----------------------\n\n";
@@ -92,5 +91,7 @@ int main(void)
 		} catch(std::exception e) {
 			std::cout << "Error: " << e.what() << std::endl;
 		}
+
+		std::cout << std::endl;
 	}
 }

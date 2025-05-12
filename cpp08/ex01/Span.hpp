@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   swap.hpp                                           :+:      :+:    :+:   */
+/*   Span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/03 10:09:51 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/05/08 11:21:07 by eberkowi         ###   ########.fr       */
+/*   Created: 2025/05/12 12:17:52 by eberkowi          #+#    #+#             */
+/*   Updated: 2025/05/12 12:24:44 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#include <vector>
 
-template <typename T>
-void swap(T &a, T &b)
+class Span
 {
-	T temp = a;
-	a = b;
-	b = temp;
-}
+	public:
+
+		unsigned int N;
+		std::vector<int> vector;
+
+		Span();
+		Span(unsigned int N);
+		Span(const Span &other);
+		Span& operator = (Span const &other);
+		~Span();
+};

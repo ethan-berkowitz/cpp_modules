@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 20:50:27 by mroux             #+#    #+#             */
-/*   Updated: 2025/04/16 11:38:27 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/05/08 12:03:32 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class Array
 		void			display(std::ostream& stream) const;
 		unsigned int	size() const;
 
-	protected:
+	private:
 
 		T				*_arr;
 		unsigned int	_size;
@@ -43,7 +43,7 @@ std::ostream&	operator<<(std::ostream& stream, Array<T>const& cl);
 template <class T>
 Array<T>::Array()
 {
-	_arr = NULL;
+	_arr = new T[0];
 	_size = 0;
 }
 
@@ -76,6 +76,8 @@ Array<T>::Array(Array const& other)
 template <class T>
 Array<T>&	Array<T>::operator=(Array<T> const& other)
 {
+	if (this == &other)
+		return (*this);
 	if (_arr != NULL)
 		delete[] _arr;
 	_size = other._size;
@@ -89,11 +91,20 @@ Array<T>&	Array<T>::operator=(Array<T> const& other)
 template <class T>
 T&			Array<T>::operator[](unsigned int i)
 {
+	std::cout << i << std::endl;
 	if (i >= _size)
 		throw std::exception();
 	return _arr[i];
 }
 
+//Size function
+template <class T>
+unsigned int	Array<T>::size() const
+{
+	return (_size);
+}
+
+//Display function for testing
 template <class T>
 void		Array<T>::display(std::ostream& stream) const
 {
@@ -106,16 +117,11 @@ void		Array<T>::display(std::ostream& stream) const
 		stream << _arr[i];
 }
 
+//Operator << for output stream for testing
 template <class T>
-unsigned int	Array<T>::size() const
+std::ostream&	operator<<(std::ostream& stream, Array<T>const& array)
 {
-	return (_size);
-}
-
-template <class T>
-std::ostream&	operator<<(std::ostream& stream, Array<T>const& cl)
-{
-	cl.display(stream);
+	array.display(stream);
 	return (stream);
 }
 
