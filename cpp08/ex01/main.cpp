@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:48:43 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/05/15 11:46:50 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/11 12:15:23 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ int main()
 
 			std::cout << "shortestSpan = " << sp.shortestSpan() << std::endl;
 			std::cout << "longestSpan = " << sp.longestSpan() << std::endl;
-		}
-		catch(const std::exception &e) {
+		} catch(const std::exception &e) {
 			std::cerr << "Exception caught " << e.what() << "\n";
 		}
 	}
@@ -52,8 +51,7 @@ int main()
 			sp.addNumber(5);
 			sp.addNumber(9);
 			sp.addNumber(17);
-		}
-		catch(const std::exception &e) {
+		} catch(const std::exception &e) {
 			std::cerr << "Exception caught " << e.what() << "\n";
 		}
 	}
@@ -64,8 +62,7 @@ int main()
 			Span sp = Span(1);
 			sp.addNumber(3);
 			sp.shortestSpan();
-		}
-		catch(const std::exception &e) {
+		} catch(const std::exception &e) {
 			std::cerr << "Exception caught " << e.what() << "\n";
 		}
 	}
@@ -77,13 +74,9 @@ int main()
 			sp.addNumber(3);
 			std::vector<int> temp = {20, 21, 22, 23, 53};
 			sp.addRangeOfIterators(temp.begin(), temp.end());
-		}
-		catch(const std::exception &e) {
+		} catch(const std::exception &e) {
 			std::cerr << "Exception caught " << e.what() << "\n";
 		}
 	}
-
 	std::cout << std::endl;
-	
-	return 0;
 }

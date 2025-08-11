@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/12 12:17:52 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/05/14 12:11:30 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/11 13:20:19 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,36 +34,30 @@ class Span
 		void print();
 
 		template <typename T>
-		void addRangeOfIterators(T begin, T end)
-		{
-			if (distance(begin, end) > N - (unsigned int)vector.size())
+		void addRangeOfIterators(T begin, T end) {
+			if (distance(begin, end) > N - (unsigned int)vector.size()) {
 				throw SpanCannotFitRange();
+			}
 			vector.insert(vector.end(), begin, end);
 		}
 
-		class SpanIsFilled : public std::exception
-		{
+		class SpanIsFilled : public std::exception {
 			public:
-				virtual const char *what() const noexcept
-				{
+				virtual const char *what() const noexcept {
 					return ("Span is filled");
 				}
 		};
 
-		class SpanCannotFitRange : public std::exception
-		{
+		class SpanCannotFitRange : public std::exception {
 			public:
-				virtual const char *what() const noexcept
-				{
+				virtual const char *what() const noexcept {
 					return ("Span is too filled to fit the given range");
 				}
 		};
 
-		class NoSpanFound : public std::exception
-		{
+		class NoSpanFound : public std::exception {
 			public:
-				virtual const char *what() const noexcept
-				{
+				virtual const char *what() const noexcept {
 					return ("No span can be found");
 				}
 		};
