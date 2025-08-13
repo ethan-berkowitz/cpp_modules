@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:48:43 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/13 14:37:19 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/13 15:30:49 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,12 @@ int	main(int argc, char **argv)
 		return 1;	
 	}
 	
-	BitCoinExchange btc(argv[1]);
-
-	std::cout << btc.filename << std::endl;	
+	//use mktime to check leap year
+	try {
+		btc(argv[1]);
+	} catch (const std::exception& e) {
+		std::cout << e.what() << std::endl;
+		return 1;
+	}
+	return 0;
 }
