@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/18 15:12:20 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/19 14:55:59 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ bool validate_date(std::tm date, std::string date_string) {
 	else {
 		temp = temp + std::to_string(day);
 	}
-	
-	//std::cout << "STRING = " << temp << std::endl;
-	
 	if (date_string == temp) {
 		return (true);
 	}
@@ -99,6 +96,7 @@ void applyData(std::string filename, std::map<std::string, float> &data) {
 			std::istringstream temp_stream(line.substr(0, end));
 			std::string input_date = temp_stream.str();
 			tm time;
+			memset(&time, 0, sizeof(time));
 			temp_stream >> std::get_time(&time, "%Y-%m-%d");
 
 			// Validate date
@@ -183,6 +181,7 @@ void parseData(std::map<std::string, float> &data) {
 		std::istringstream temp_stream(line.substr(0, end));
 		std::string date_string = temp_stream.str();
 		std::tm time{};
+		memset(&time, 0, sizeof(time));
 		temp_stream >> std::get_time(&time, "%Y-%m-%d");
 		//std::cout << "    " << time.tm_year + 1900 << " " << time.tm_mon + 1 << " " << time.tm_mday << std::endl;
 
