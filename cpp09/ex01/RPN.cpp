@@ -6,13 +6,13 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/19 15:37:02 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/19 15:47:57 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "RPN.hpp"
 
-double getResult(int a, int b, std::string value) {
+float getResult(double a, double b, std::string value) {
 	if (value == "+")
 		return (a + b);
 	else if (value == "-")
@@ -26,11 +26,11 @@ double getResult(int a, int b, std::string value) {
 
 void RPN(std::string input) {
 	std::stringstream input_stream(input);
-	std::stack<double> values;
+	std::stack<float> values;
 	std::string value;
-	std::string single_digits = "0123456789";
-	std::string operands = "+-*/";
-	double a, b, result;
+	std::string single_digits = "0 1 2 3 4 5 6 7 8 9";
+	std::string operands = "+ - * /";
+	float a, b, result;
 
 	while (input_stream >> value) {
 		if (single_digits.find(value) != std::string::npos) {
@@ -55,7 +55,7 @@ void RPN(std::string input) {
 			values.push(result);
 		}
 		else {
-			throw std::runtime_error("Error: invalid input)");
+			throw std::runtime_error("Error: invalid input");
 		}
 	}
 	if (!values.empty()) {
