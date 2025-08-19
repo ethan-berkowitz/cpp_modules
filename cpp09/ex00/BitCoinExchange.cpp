@@ -6,22 +6,65 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/18 14:28:08 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/18 15:12:20 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitCoinExchange.hpp"
 
-bool validate_date(std::tm date) {
-	std::tm converted_date{};
-	converted_date = date;
-	std::mktime(&converted_date);
-	if (converted_date.tm_year != date.tm_year
-		|| converted_date.tm_mon != date.tm_mon
-		|| converted_date.tm_mday != date.tm_mday) {
+bool validate_leapyear(std::tm date) {
+	// curly brances are needed to initialize std::tm
+	struct std::tm test_date{};
+	test_date = date;
+	std::mktime(&test_date);
+	if (test_date.tm_year != date.tm_year
+		|| test_date.tm_mon != date.tm_mon
+		|| test_date.tm_mday != date.tm_mday) {
 		return false;
 	} 
 	return true;
+}
+
+bool validate_date(std::tm date, std::string date_string) {
+	if (!validate_leapyear(date))
+		return false;
+	
+	int year = date.tm_year + 1900;
+	int month = date.tm_mon + 1;
+	int day = date.tm_mday;
+	
+	std::string temp;
+	if (year < 10) {
+		temp = temp + "000" + std::to_string(year) + "-";
+	}
+	else if (year < 100) {
+		temp = temp + "00" + std::to_string(year) + "-";
+	}
+	else if (year < 1000) {
+		temp = temp + "0" + std::to_string(year) + "-";
+	}
+	else {
+		temp = temp + std::to_string(year) + "-";
+	}
+	if (month < 10) {
+		temp = temp + "0" + std::to_string(month) + "-";
+	}
+	else {
+		temp = temp + std::to_string(month) + "-";
+	}
+	if (day < 10) {
+		temp = temp + "0" + std::to_string(day);
+	}
+	else {
+		temp = temp + std::to_string(day);
+	}
+	
+	//std::cout << "STRING = " << temp << std::endl;
+	
+	if (date_string == temp) {
+		return (true);
+	}
+	return (false);
 }
 
 
@@ -60,7 +103,7 @@ void applyData(std::string filename, std::map<std::string, float> &data) {
 
 			// Validate date
 
-			if (!validate_date(time)) {
+			if (!validate_date(time, input_date)) {
 				std::cout << "Error: invalid date" << std::endl;
 				continue;
 			}
@@ -145,7 +188,7 @@ void parseData(std::map<std::string, float> &data) {
 
 		// TODO Validate date
 
-		 if (!validate_date(time)) {
+		 if (!validate_date(time, date_string)) {
 			throw std::runtime_error("Error: Invalid date");
 		 }
 
@@ -168,13 +211,7 @@ void parseData(std::map<std::string, float> &data) {
 }
 
 void btc(std::string filename) {
-	(void)filename;
 	std::map<std::string, float> data;
 	parseData(data);
-
-	// for (const auto &pair : data) {
-	// 	std::cout << pair.first << " && " << pair.second << std::endl;
-	// }
-	
 	applyData(filename, data);
 }
