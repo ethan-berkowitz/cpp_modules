@@ -6,13 +6,13 @@
 #    By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/04 12:08:41 by eberkowi          #+#    #+#              #
-#    Updated: 2025/08/20 11:53:51 by eberkowi         ###   ########.fr        #
+#    Updated: 2025/08/20 11:58:58 by eberkowi         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = PMergeMe
+NAME = PmergeMe
 FLAGS = -Wall -Wextra -Werror -std=c++11
-INFILES = 	main.cpp PMergeMe.cpp
+INFILES = 	main.cpp PmergeMe.cpp
 OBJFILES = $(INFILES:.cpp=.o)
 
 all: $(NAME)

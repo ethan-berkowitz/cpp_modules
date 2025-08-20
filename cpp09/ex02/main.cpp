@@ -6,11 +6,11 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:48:43 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/19 15:46:13 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/20 11:59:05 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "RPN.hpp"
+#include "PmergeMe.hpp"
 
 int	main(int argc, char **argv)
 {
@@ -18,13 +18,9 @@ int	main(int argc, char **argv)
 		std::cout << "Error: no arguments." << std::endl;
 		return 1;
 	}
-	else if (argc > 2) {
-		std::cout << "Error: too many arguments." << std::endl;
-		return 1;	
-	}
 	
 	try {
-		RPN(argv[1]);
+		PmergeMe(argv);
 	} catch (const std::exception& e) {
 		std::cout << e.what() << std::endl;
 		return 1;
