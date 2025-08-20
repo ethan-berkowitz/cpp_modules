@@ -1,0 +1,14 @@
+node.largest = 3
+node.vector.other = 1;
+level = 1;
+type = "pair";
+
+node.largest = 4
+node.vector.other = 2;
+level = 1;
+type = "pair";
+
+node.largest = 5
+node.vector.other = NULL;
+level = 1;
+type = "leftover";
