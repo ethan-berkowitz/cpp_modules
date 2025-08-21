@@ -6,11 +6,12 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 16:56:01 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/21 18:45:29 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream> // std::cout
+#include <iomanip> // std::setw
 #include <vector> // vector
 #include <limits> // numeric_limits
 #include <cmath> // pow
@@ -21,7 +22,8 @@
 
 struct Element {
 	unsigned int value;
-	unsigned int match;
+	unsigned int matchNumber = 0;
+	char matchLetter = '-';
 };
 
 struct Info {
@@ -30,6 +32,8 @@ struct Info {
 	unsigned int level = 1;
 	unsigned int inputSize;
 	unsigned int comparisons;
+	const unsigned int jacobsthal[16] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683,
+										1365, 2731, 5461, 10923, 21845, 43691};
 
     const std::string red     = "\033[31m";
     const std::string green   = "\033[32m";

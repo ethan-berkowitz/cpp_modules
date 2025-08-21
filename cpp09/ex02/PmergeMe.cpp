@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 17:24:40 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/21 19:08:09 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,16 @@ void getMaxLevel(Info &info) {
 }
 
 void printInputAndHighlightSwaps (Info &info, unsigned int first, unsigned int second, bool swapped) {
+	unsigned int width = 2;
 	for (unsigned int j = 0; j < info.inputSize; j++) {
 		if (j == first || j == second) {
 			if (swapped == true)
-				std::cout << info.green << info.input[j] << " ";
+				std::cout << std::setw(width) << info.green << info.input[j] << " ";
 			else
-				std::cout << info.red << info.input[j] << " ";
+				std::cout << std::setw(width) << info.red << info.input[j] << " ";
 		}
 		else {
-			std::cout << info.reset << info.input[j] << " ";
+			std::cout << std::setw(width) << info.reset << info.input[j] << " ";
 		}
 	}
 	std::cout << std::endl;
@@ -87,33 +88,47 @@ void printInsertVectors(Info &info,
 					std::vector<Element> &pend,
 					std::vector<unsigned int> &nonParticipating) {
 
-	std::cout << info.reset << "main_value: ";
+	unsigned int width = 2;
+
+	std::cout << info.reset << "main.value      : ";
 	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << main[i].value << " ";
+		std::cout << std::setw(width) << main[i].value << " ";
 	}
 	std::cout << std::endl;
 
-	std::cout << info.reset << "main_match: ";
+	std::cout << info.reset << "main.matchLetter: ";
 	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << main[i].match << " ";
+		std::cout << std::setw(width) <<  main[i].matchLetter << " ";
 	}
 	std::cout << std::endl;
 
-	std::cout << info.reset << "pend_value: ";
+	std::cout << info.reset << "main.matchNumber: ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << std::setw(width) <<  main[i].matchNumber << " ";
+	}
+	std::cout << std::endl << std::endl;
+
+	std::cout << info.reset << "pend.value      : ";
 	for (unsigned int i = 0; i < pend.size(); i++) {
-		std::cout << pend[i].value << " ";
+		std::cout << std::setw(width) << pend[i].value << " ";
 	}
 	std::cout << std::endl;
 
-	std::cout << info.reset << "pend_match: ";
+	std::cout << info.reset << "pend.matchLetter: ";
 	for (unsigned int i = 0; i < pend.size(); i++) {
-		std::cout << pend[i].match << " ";
+		std::cout << std::setw(width) << pend[i].matchLetter << " ";
 	}
 	std::cout << std::endl;
 
-	std::cout << info.reset << "nonParticipating_value: ";
+	std::cout << info.reset << "pend.matchNumber: ";
+	for (unsigned int i = 0; i < pend.size(); i++) {
+		std::cout << std::setw(width) << pend[i].matchNumber << " ";
+	}
+	std::cout << std::endl << std::endl;
+
+	std::cout << info.reset << "nonPartici.value: ";
 	for (unsigned int value : nonParticipating) {
-		std::cout << info.reset << value << " ";
+		std::cout << std::setw(width) << info.reset << value << " ";
 	}
 	std::cout << std::endl;
 
@@ -159,32 +174,49 @@ void addOtherGroups(Info &info,
 	}
 }
 
-void addMatches(std::vector<Element> &main, std::vector<Element> &pend, unsigned int groupSize) {
+void addmatches(std::vector<Element> &main, std::vector<Element> &pend, unsigned int groupSize) {
 	unsigned int mainSize = main.size();
 	unsigned int pendSize = pend.size();
 
 	// Add to main
 
-	unsigned int match = 1;
-	for (unsigned int i = 0; i < groupSize; i++) {
-		main[i].match = match;
-	}
+	unsigned int matchNumber = 1;
+	main[groupSize - 1].matchNumber = matchNumber;
+	main[groupSize - 1].matchLetter = 'b';
 	for (unsigned int i = groupSize; i < mainSize; i += groupSize) {
-		for (unsigned int j = 0; j < groupSize; j++) {
-			main[i + j].match = match;
-		}
-		match++;
+		main[i + groupSize - 1].matchNumber = matchNumber;
+		main[i + groupSize - 1].matchLetter = 'a';
+		matchNumber++;
 	}
 
 	// Add to pend
 
-	match = 2;
+	matchNumber = 2;
 	for (unsigned int i = 0; i < pendSize; i += groupSize) {
-		for (unsigned int j = 0; j < groupSize; j++) {
-			pend[i + j].match = match;
-		}
-		match++;
+		pend[i + groupSize - 1].matchNumber = matchNumber;
+		pend[i + groupSize - 1].matchLetter = 'b';
+		matchNumber++;
 	}
+}
+
+void handleBinaryInsertion(Info& info,
+							std::vector<Element> &main,
+							std::vector<Element> &pend,
+							unsigned int groupSize) {
+	
+	(void)main;
+	(void)pend;
+	(void)groupSize;
+
+	// Loop through jacobsthal numbers
+
+	for (unsigned int i = 1; i < 6; i++) {
+		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
+			// Look for matchNumber in main
+			
+		}
+	}
+
 }
 
 void handleInsertion(Info &info) {
@@ -211,9 +243,9 @@ void handleInsertion(Info &info) {
 
 	addFirstTwoGroupsToMain(info, main, range);
 	addOtherGroups(info, main, pend, nonParticipating, range);
-	addMatches(main, pend, range / 2);
+	addmatches(main, pend, range / 2);
 	printInsertVectors(info, main, pend, nonParticipating);
-
+	handleBinaryInsertion(info, main, pend, range / 2);
 
 
 	info.level--;
@@ -235,5 +267,4 @@ void PmergeMe(char **argv) {
 
 	std::cout << std::endl;
 	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
-
 }
