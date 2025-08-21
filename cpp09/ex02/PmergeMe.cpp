@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 19:08:09 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/21 19:17:18 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,10 @@ void handleBinaryInsertion(Info& info,
 	for (unsigned int i = 1; i < 6; i++) {
 		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
 			// Look for matchNumber in main
+			// The article mentions finding the corresponding matchNumber, but says
+			// nothing about searching afterwards with a binary search?
+			// If it's lower than the matching number, do we then take the lower half of
+			// numbers and take the middle one, and compare and then do the same again??
 			
 		}
 	}
