@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 16:54:02 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/21 17:24:40 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,38 +83,53 @@ void handleComparisons(Info &info) {
 }
 
 void printInsertVectors(Info &info,
-					std::vector<unsigned int> &main,
-					std::vector<unsigned int> &pend,
+					std::vector<Element> &main,
+					std::vector<Element> &pend,
 					std::vector<unsigned int> &nonParticipating) {
 
-	std::cout << info.reset << "main: ";
-	for (unsigned int value : main) {
-		std::cout << info.reset << value << " ";
+	std::cout << info.reset << "main_value: ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << main[i].value << " ";
 	}
 	std::cout << std::endl;
 
-	std::cout << info.reset << "pend: ";
-	for (unsigned int value : pend) {
-		std::cout << info.reset << value << " ";
+	std::cout << info.reset << "main_match: ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << main[i].match << " ";
 	}
 	std::cout << std::endl;
 
-	std::cout << info.reset << "nonParticipating: ";
+	std::cout << info.reset << "pend_value: ";
+	for (unsigned int i = 0; i < pend.size(); i++) {
+		std::cout << pend[i].value << " ";
+	}
+	std::cout << std::endl;
+
+	std::cout << info.reset << "pend_match: ";
+	for (unsigned int i = 0; i < pend.size(); i++) {
+		std::cout << pend[i].match << " ";
+	}
+	std::cout << std::endl;
+
+	std::cout << info.reset << "nonParticipating_value: ";
 	for (unsigned int value : nonParticipating) {
 		std::cout << info.reset << value << " ";
 	}
 	std::cout << std::endl;
+
 }
 
-void addFirstTwoGroupsToMain(Info &info, std::vector<unsigned int> &main, unsigned int &range) {
+void addFirstTwoGroupsToMain(Info &info, std::vector<Element> &main, unsigned int &range) {
 	for (unsigned int i = 0; i < range; i++) {
-		main.push_back(info.input[i]);
+		Element temp;
+		temp.value = info.input[i];
+		main.push_back(temp);
 	}
 }
 
 void addOtherGroups(Info &info,
-					std::vector<unsigned int> &main,
-					std::vector<unsigned int> &pend,
+					std::vector<Element> &main,
+					std::vector<Element> &pend,
 					std::vector<unsigned int> &nonParticipating,
 					unsigned int &range) {
 
@@ -125,11 +140,13 @@ void addOtherGroups(Info &info,
 	unsigned int i = range;
 	for (; i + groupSize < info.inputSize; i += groupSize) {
 		for (unsigned int j = 0; j < groupSize; j++) {
+			Element temp;
+			temp.value = info.input[i + j];
 			if (addToMain) {
-				main.push_back(info.input[i + j]);
+				main.push_back(temp);
 			}
 			else {
-				pend.push_back(info.input[i + j]);
+				pend.push_back(temp);
 			}
 		}
 		addToMain = !addToMain;
@@ -142,7 +159,33 @@ void addOtherGroups(Info &info,
 	}
 }
 
+void addMatches(std::vector<Element> &main, std::vector<Element> &pend, unsigned int groupSize) {
+	unsigned int mainSize = main.size();
+	unsigned int pendSize = pend.size();
 
+	// Add to main
+
+	unsigned int match = 1;
+	for (unsigned int i = 0; i < groupSize; i++) {
+		main[i].match = match;
+	}
+	for (unsigned int i = groupSize; i < mainSize; i += groupSize) {
+		for (unsigned int j = 0; j < groupSize; j++) {
+			main[i + j].match = match;
+		}
+		match++;
+	}
+
+	// Add to pend
+
+	match = 2;
+	for (unsigned int i = 0; i < pendSize; i += groupSize) {
+		for (unsigned int j = 0; j < groupSize; j++) {
+			pend[i + j].match = match;
+		}
+		match++;
+	}
+}
 
 void handleInsertion(Info &info) {
 	if (info.level == 0) {
@@ -162,12 +205,13 @@ void handleInsertion(Info &info) {
 
 
 	unsigned int range = pow(2, info.level);
-	std::vector<unsigned int> main;
-	std::vector<unsigned int> pend;
+	std::vector<Element> main;
+	std::vector<Element> pend;
 	std::vector<unsigned int> nonParticipating;
 
 	addFirstTwoGroupsToMain(info, main, range);
 	addOtherGroups(info, main, pend, nonParticipating, range);
+	addMatches(main, pend, range / 2);
 	printInsertVectors(info, main, pend, nonParticipating);
 
 

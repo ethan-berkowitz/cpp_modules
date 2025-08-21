@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 16:21:05 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/21 16:56:01 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 
 #define SWAP_DEBUG true
 #define INSERTION_DEBUG true
+
+struct Element {
+	unsigned int value;
+	unsigned int match;
+};
 
 struct Info {
 	std::vector<unsigned int > input;
