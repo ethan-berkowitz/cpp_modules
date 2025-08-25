@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 18:45:29 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/25 10:44:05 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,5 @@ struct Info {
     const std::string cyan    = "\033[36m";
     const std::string reset   = "\033[0m";
 };
-
-// struct node {
-//     unsigned int largest;
-// 	std::vector<unsigned int> other;
-// 	unsigned int level = 0;
-// 	std::string type = "pair";
-// };
 
 void PmergeMe(char **argv);
