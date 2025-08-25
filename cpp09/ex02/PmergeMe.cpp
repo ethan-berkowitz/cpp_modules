@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/21 19:17:18 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/25 11:03:10 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,9 @@ void handleComparisons(Info &info) {
 			printInputAndHighlightSwaps(info, i + disA, i + disB, swapped);
 	}
 	if (info.level < info.maxLevel) {
-		std::cout << std::endl;
+		if (SWAP_DEBUG) {
+			std::cout << std::endl;
+		}
 		info.level++;
 		handleComparisons(info);
 	}
@@ -104,7 +106,12 @@ void printInsertVectors(Info &info,
 
 	std::cout << info.reset << "main.matchNumber: ";
 	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << std::setw(width) <<  main[i].matchNumber << " ";
+		if (main[i].matchNumber == 0) {
+			std::cout << std::setw(width) <<  "-" << " ";
+		}
+		else {
+			std::cout << std::setw(width) <<  main[i].matchNumber << " ";
+		}
 	}
 	std::cout << std::endl << std::endl;
 
@@ -122,7 +129,12 @@ void printInsertVectors(Info &info,
 
 	std::cout << info.reset << "pend.matchNumber: ";
 	for (unsigned int i = 0; i < pend.size(); i++) {
-		std::cout << std::setw(width) << pend[i].matchNumber << " ";
+		if (pend[i].matchNumber == 0) {
+			std::cout << std::setw(width) <<  "-" << " ";
+		}
+		else {
+			std::cout << std::setw(width) <<  pend[i].matchNumber << " ";
+		}
 	}
 	std::cout << std::endl << std::endl;
 
@@ -248,7 +260,9 @@ void handleInsertion(Info &info) {
 	addFirstTwoGroupsToMain(info, main, range);
 	addOtherGroups(info, main, pend, nonParticipating, range);
 	addmatches(main, pend, range / 2);
-	printInsertVectors(info, main, pend, nonParticipating);
+	if (INSERTION_DEBUG) {
+		printInsertVectors(info, main, pend, nonParticipating);
+	}
 	handleBinaryInsertion(info, main, pend, range / 2);
 
 
@@ -269,6 +283,5 @@ void PmergeMe(char **argv) {
 	handleComparisons(info);
 	handleInsertion(info);
 
-	std::cout << std::endl;
 	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
 }
