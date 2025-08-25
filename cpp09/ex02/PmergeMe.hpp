@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/25 10:52:50 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/25 14:09:55 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <cmath> // pow
 #include <algorithm> // swap
 
-#define SWAP_DEBUG true
+#define SWAP_DEBUG false
 #define INSERTION_DEBUG true
 
 struct Element {

@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/25 11:03:10 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/25 16:09:08 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,25 +211,104 @@ void addmatches(std::vector<Element> &main, std::vector<Element> &pend, unsigned
 	}
 }
 
+int findIndexOfJacobNumber(unsigned int j,
+							unsigned int groupSize,
+							unsigned int &index,
+							std::vector<Element> &elements) {
+	for (index = groupSize - 1; index < elements.size(); index += 1) {
+		if (j == elements[index].matchNumber) {
+			return true;
+		}
+	}
+	return false;
+}
+
+unsigned int findInsertionIndex(Info &info,
+					unsigned int value,
+					unsigned int lower,
+					unsigned int upper,
+					unsigned int groupSize,
+					std::vector<Element> &main) {
+	
+	// Check if we found the index
+
+	if (upper == lower) {
+		info.comparisons++;
+		if (value < main[lower].value) {
+			return lower;
+		}
+		else {
+			return lower + groupSize;
+		}
+	}
+
+	// Debug
+	
+	std::cout << "lower = " << lower << ", upper = " << upper << ", ";
+
+	// Find middle index
+
+	unsigned int groups_between = (upper - lower) / groupSize;
+	unsigned int middle_index = lower + ((groups_between / 2) * groupSize);
+	std::cout << "middle = " << middle_index << ", ";
+	
+	// Compare value to value at middle index
+
+	info.comparisons++;
+	if (value < main[middle_index].value) {
+		if ((int)middle_index - (int)groupSize < 0){
+			upper = lower;
+		}
+		else {
+			upper = middle_index - groupSize;
+		}
+	}
+	else {
+		lower = middle_index + groupSize;
+	}
+	std::cout << std::endl;
+
+	return findInsertionIndex(info, value, lower, upper, groupSize, main);
+
+	
+}
+
 void handleBinaryInsertion(Info& info,
 							std::vector<Element> &main,
 							std::vector<Element> &pend,
 							unsigned int groupSize) {
-	
-	(void)main;
-	(void)pend;
-	(void)groupSize;
 
+	std::cout << std::endl;
 	// Loop through jacobsthal numbers
-
-	for (unsigned int i = 1; i < 6; i++) {
+	for (unsigned int i = 1; i < 3; i++) { //CHANGE < 3 to size of jacobsthal array
 		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
-			// Look for matchNumber in main
-			// The article mentions finding the corresponding matchNumber, but says
-			// nothing about searching afterwards with a binary search?
-			// If it's lower than the matching number, do we then take the lower half of
-			// numbers and take the middle one, and compare and then do the same again??
-			
+			std::cout << "jacob = " << j << ", ";
+			// Find matching index for jacob in pend
+			unsigned int pend_index;
+			if (findIndexOfJacobNumber(j, groupSize, pend_index, pend)) {
+				std::cout << "pend = " << pend_index << ", ";
+				std::cout << "value = " << pend[pend_index].value << ", ";
+				// Find matching index for jacob in main
+				unsigned int main_index;
+				unsigned int insert_index;
+				if (findIndexOfJacobNumber(j, groupSize, main_index, main)) {
+					std::cout << "main = " << main_index << ",\n";
+					insert_index = findInsertionIndex(info, pend[pend_index].value,
+													groupSize - 1, main_index - groupSize,
+													groupSize, main);
+				}
+				else {
+					std::cout << "main = " << "--,\n";
+					insert_index = findInsertionIndex(info, pend[pend_index].value,
+													groupSize - 1, main.size() - 1,
+													groupSize, main);
+				}
+				std::cout << "insert_index = " << insert_index;
+			}
+			else {
+				std::cout << "--------,\n";
+			}
+			std::cout << std::endl;
 		}
 	}
 
