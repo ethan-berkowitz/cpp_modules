@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/25 16:09:08 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/25 21:09:53 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void printInsertVectors(Info &info,
 	for (unsigned int value : nonParticipating) {
 		std::cout << std::setw(width) << info.reset << value << " ";
 	}
-	std::cout << std::endl;
+	std::cout << std::endl << std::endl;
 
 }
 
@@ -273,20 +273,117 @@ unsigned int findInsertionIndex(Info &info,
 	
 }
 
+void insertToMain(unsigned int pend_index,
+					unsigned int insert_index,
+					unsigned int groupSize,
+					std::vector<Element> &main,
+					std::vector<Element> &pend
+					) {
+
+	(void)insert_index;
+	(void)main;
+	(void)pend;
+
+	// Set starting position of pend and insert
+
+	unsigned int pend_start = pend_index - groupSize + 1;
+	std::cout << "\033[32m" << "pend_start = " << pend_start << "\n";
+	unsigned int insert_start = insert_index - groupSize + 1;
+	std::cout << "\033[32m" << "insert_start = " << insert_start << "\n";
+
+	// Hold on to main values that we want to shift
+
+	std::vector<Element> temp;
+	for (unsigned int i = insert_start; i < main.size(); i++) {
+		Element element;
+		element.matchLetter = main[i].matchLetter;
+		element.matchNumber = main[i].matchNumber;
+		element.value = main[i].value;
+		temp.push_back(element);
+	}
+
+	// Print temp for debug
+
+	std::cout << "temp = ";
+	for (unsigned int i = 0; i < temp.size(); i++) {
+		std::cout << temp[i].value << " ";
+	}
+	std::cout << std::endl;
+
+	// Remove shifting values from main
+
+	unsigned int size = main.size();
+	for (unsigned int i = insert_start; i < size; i++) {
+		main.pop_back();
+	}
+
+	// Print main for debug
+
+	std::cout << "main_after_remove = ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << main[i].value << " ";
+	}
+	std::cout << std::endl;
+
+	// Insert pend group into main
+
+	for (unsigned int i = 0; i < groupSize; i++) {
+		Element element;
+		element.matchLetter = pend[i + pend_start].matchLetter;
+		element.matchNumber = pend[i + pend_start].matchNumber;
+		element.value = pend[i + pend_start].value;
+		main.push_back(element);
+	}
+
+	// Print main for debug
+
+	std::cout << "main_after_insert = ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << main[i].value << " ";
+	}
+	std::cout << std::endl;
+
+	// Add back the shifted main values
+
+	for (unsigned int i = 0; i < temp.size(); i++) {
+		main.push_back(temp[i]);
+	}
+
+	// Print main for debug
+
+	std::cout << "main_after_remain = ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << main[i].value << " ";
+	}
+	std::cout << std::endl;
+
+	//TODO remove pend group
+
+	// need to remove group from the pend vector
+	// outcome was OK otherwise in first two! But keep checking
+
+
+
+	
+
+}
+
 void handleBinaryInsertion(Info& info,
 							std::vector<Element> &main,
 							std::vector<Element> &pend,
-							unsigned int groupSize) {
+							unsigned int groupSize,
+							std::vector<unsigned int> &nonParticipating) {
 
 	std::cout << std::endl;
 	// Loop through jacobsthal numbers
 	for (unsigned int i = 1; i < 3; i++) { //CHANGE < 3 to size of jacobsthal array
 		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
-			std::cout << "jacob = " << j << ", ";
+			//std::cout << "jacob = " << j << ", ";
 			// Find matching index for jacob in pend
 			unsigned int pend_index;
 			if (findIndexOfJacobNumber(j, groupSize, pend_index, pend)) {
-				std::cout << "pend = " << pend_index << ", ";
+				printInsertVectors(info, main, pend, nonParticipating);
+				//std::cout << "pend = " << pend_index << ", ";
 				std::cout << "value = " << pend[pend_index].value << ", ";
 				// Find matching index for jacob in main
 				unsigned int main_index;
@@ -303,12 +400,13 @@ void handleBinaryInsertion(Info& info,
 													groupSize - 1, main.size() - 1,
 													groupSize, main);
 				}
-				std::cout << "insert_index = " << insert_index;
+				std::cout << "insert_index = " << insert_index << std::endl;
+				insertToMain(pend_index, insert_index, groupSize, main, pend);
 			}
 			else {
 				std::cout << "--------,\n";
 			}
-			std::cout << std::endl;
+			std::cout << info.reset << "\n\n";
 		}
 	}
 
@@ -339,10 +437,7 @@ void handleInsertion(Info &info) {
 	addFirstTwoGroupsToMain(info, main, range);
 	addOtherGroups(info, main, pend, nonParticipating, range);
 	addmatches(main, pend, range / 2);
-	if (INSERTION_DEBUG) {
-		printInsertVectors(info, main, pend, nonParticipating);
-	}
-	handleBinaryInsertion(info, main, pend, range / 2);
+	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
 
 
 	info.level--;
