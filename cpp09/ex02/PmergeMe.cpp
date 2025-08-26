@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 10:52:47 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 11:37:14 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void swapGivenRange(Info &info, unsigned int &start, unsigned int &range) {
 	}
 }
 
-void handleComparisons(Info &info) {
+void handleSwaps(Info &info) {
 	unsigned int range = pow(2, info.level);
 	unsigned int disA = range / 2 - 1;
 	unsigned int disB = range - 1;
@@ -81,7 +81,7 @@ void handleComparisons(Info &info) {
 			std::cout << std::endl;
 		}
 		info.level++;
-		handleComparisons(info);
+		handleSwaps(info);
 	}
 }
 
@@ -91,6 +91,8 @@ void printInsertVectors(Info &info,
 					std::vector<unsigned int> &nonParticipating) {
 
 	unsigned int width = 2;
+
+	std::cout << info.reset << "------------------------------------------------------------\n";
 
 	// PRINT PEND
 
@@ -144,12 +146,14 @@ void printInsertVectors(Info &info,
 
 
 	//PRINT NON-PARTICIPATING
-
-	std::cout << info.reset << "nonPartici.value: ";
-	for (unsigned int value : nonParticipating) {
-		std::cout << std::setw(width) << info.reset << value << " ";
+	
+	if (INSERTION_EXTRA_DEBUG) {		
+		std::cout << info.reset << "nonPartici.value: ";
+		for (unsigned int value : nonParticipating) {
+			std::cout << std::setw(width) << info.reset << value << " ";
+		}
+		std::cout << std::endl;
 	}
-	std::cout << std::endl << std::endl;
 
 }
 
@@ -253,13 +257,13 @@ unsigned int findInsertionIndex(Info &info,
 
 	// Debug
 	
-	std::cout << "lower = " << lower << ", upper = " << upper << ", ";
+	//std::cout << "lower = " << lower << ", upper = " << upper << ", ";
 
 	// Find middle index
 
 	unsigned int groups_between = (upper - lower) / groupSize;
 	unsigned int middle_index = lower + ((groups_between / 2) * groupSize);
-	std::cout << "middle = " << middle_index << ", ";
+	//std::cout << "middle = " << middle_index << ", ";
 	
 	// Compare value to value at middle index
 
@@ -275,7 +279,7 @@ unsigned int findInsertionIndex(Info &info,
 	else {
 		lower = middle_index + groupSize;
 	}
-	std::cout << std::endl;
+	//std::cout << std::endl;
 
 	return findInsertionIndex(info, value, lower, upper, groupSize, main);
 
@@ -292,9 +296,9 @@ void insertToMain(unsigned int pend_index,
 	// Set starting position of pend and insert
 
 	unsigned int pend_start = pend_index - groupSize + 1;
-	std::cout << "\033[32m" << "pend_start = " << pend_start << "\n";
+	//std::cout << "\033[32m" << "pend_start = " << pend_start << "\n";
 	unsigned int insert_start = insert_index - groupSize + 1;
-	std::cout << "\033[32m" << "insert_start = " << insert_start << "\n";
+	//std::cout << "\033[32m" << "insert_start = " << insert_start << "\n";
 
 	// Hold on to main values that we want to shift
 
@@ -309,11 +313,11 @@ void insertToMain(unsigned int pend_index,
 
 	// Print temp for debug
 
-	std::cout << "temp = ";
-	for (unsigned int i = 0; i < temp.size(); i++) {
-		std::cout << temp[i].value << " ";
-	}
-	std::cout << std::endl;
+	// std::cout << "temp = ";
+	// for (unsigned int i = 0; i < temp.size(); i++) {
+	// 	std::cout << temp[i].value << " ";
+	// }
+	// std::cout << std::endl;
 
 	// Remove shifting values from main
 
@@ -324,11 +328,13 @@ void insertToMain(unsigned int pend_index,
 
 	// Print main for debug
 
-	std::cout << "main_after_remove = ";
-	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << main[i].value << " ";
+	if (MAIN_DEBUG) {		
+			std::cout << "main_after_remove = ";
+			for (unsigned int i = 0; i < main.size(); i++) {
+				std::cout << main[i].value << " ";
+			}
+			std::cout << std::endl;
 	}
-	std::cout << std::endl;
 
 	// Insert pend group into main
 
@@ -342,11 +348,13 @@ void insertToMain(unsigned int pend_index,
 
 	// Print main for debug
 
-	std::cout << "main_after_insert = ";
-	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << main[i].value << " ";
+	if (MAIN_DEBUG) {		
+			std::cout << "main_after_insert = ";
+			for (unsigned int i = 0; i < main.size(); i++) {
+				std::cout << main[i].value << " ";
+			}
+			std::cout << std::endl;
 	}
-	std::cout << std::endl;
 
 	// Add back the shifted main values
 
@@ -356,11 +364,13 @@ void insertToMain(unsigned int pend_index,
 
 	// Print main for debug
 
-	std::cout << "main_after_remain = ";
-	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << main[i].value << " ";
+	if (MAIN_DEBUG) {		
+			std::cout << "main_after_remain = ";
+			for (unsigned int i = 0; i < main.size(); i++) {
+				std::cout << main[i].value << " ";
+			}
+			std::cout << std::endl;
 	}
-	std::cout << std::endl;
 
 	//Remove elements from pend
 
@@ -393,50 +403,84 @@ void handleBinaryInsertion(Info& info,
 			unsigned int pend_index;
 			if (findIndexOfJacobNumber(j, groupSize, pend_index, pend)) {
 				printInsertVectors(info, main, pend, nonParticipating);
-				std::cout << "value = " << pend[pend_index].value << ", ";
+				//std::cout << "value = " << pend[pend_index].value << ", ";
 				// Find matching index for jacob in main
 				unsigned int main_index;
 				unsigned int insert_index;
 				if (findIndexOfJacobNumber(j, groupSize, main_index, main)) {
-					std::cout << "main = " << main_index << ",\n";
+					//std::cout << "main = " << main_index << ",\n";
 					insert_index = findInsertionIndex(info, pend[pend_index].value,
 													groupSize - 1, main_index - groupSize,
 													groupSize, main);
 				}
 				else {
-					std::cout << "main = " << "--,\n";
+					//std::cout << "main = " << "--,\n";
 					insert_index = findInsertionIndex(info, pend[pend_index].value,
 													groupSize - 1, main.size() - 1,
 													groupSize, main);
 				}
-				std::cout << "insert_index = " << insert_index << std::endl;
+				//std::cout << "insert_index = " << insert_index << std::endl;
 				insertToMain(pend_index, insert_index, groupSize, main, pend);
 			}
 			else {
-				std::cout << "--------,\n";
+				//std::cout << "--------,\n";
 			}
-			std::cout << info.reset << "\n\n";
+			//std::cout << info.reset << "\n\n";
 		}
 	}
 
 }
 
+void updateInput(Info &info,
+				std::vector<Element> &main,
+				std::vector<unsigned int> nonParticipating) {
+	// Erase entire input
+
+	info.input.clear();
+
+	// Add element values from main to input
+
+	for (unsigned int i = 0; i < main.size(); i++) {
+		info.input.push_back(main[i].value);
+	}
+
+	// Add values from non participating to input
+
+	for (unsigned int i = 0; i < nonParticipating.size(); i++) {
+		info.input.push_back(nonParticipating[i]);
+	}
+
+	// Print input for debug
+
+	if (INSERTION_DEBUG) {
+		std::cout << "\nupdated input = ";
+		for (unsigned int i = 0; i < info.input.size(); i++) {
+			std::cout << info.green << info.input[i] << " ";
+		}
+		std::cout << std::endl;
+	}
+	
+}
+
 void handleInsertion(Info &info) {
+	// End insertion when level is 0
 	if (info.level == 0) {
 		return ;
 	}
+	// Debug print Insert Levels
 	if (INSERTION_DEBUG) {
-		std::cout << info.cyan << "\nInsert Level " << info.level << std::endl; 
+		std::cout << std::endl;
+		std::cout << info.cyan << "------------------------------------------------------------\n";
+		std::cout << info.cyan << "Insert Level " << info.level << std::endl;
+		std::cout << info.cyan << "------------------------------------------------------------\n";
 	}
+	// Skip level when there are less than 3 groups for insertion
 	if (info.inputSize < pow(2, info.level) * 2) {
 		info.level--;
-		if (INSERTION_DEBUG) {
-			std::cout << info.reset << "SKIP" << std::endl; 
-		}
 		handleInsertion(info);
 		return ;
 	}
-
+	// Find the range of of the groups
 	unsigned int range = pow(2, info.level);
 	std::vector<Element> main;
 	std::vector<Element> pend;
@@ -446,6 +490,7 @@ void handleInsertion(Info &info) {
 	addOtherGroups(info, main, pend, nonParticipating, range);
 	addmatches(main, pend, range / 2);
 	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
+	updateInput(info, main, nonParticipating);
 
 	info.level--;
 	handleInsertion(info);
@@ -456,13 +501,25 @@ void initInfo(Info &info) {
 	getMaxLevel(info);
 }
 
+void printResult(Info &info) {
+	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
+
+	for (unsigned int i = 0; i < info.input.size(); i++) {
+		std::cout << info.input[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
 void PmergeMe(char **argv) {
 	Info info;
 
 	handleInput(argv, info);
 	initInfo(info);
-	handleComparisons(info);
+	handleSwaps(info);
 	handleInsertion(info);
 
-	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
+	printResult(info);
+
+	
+	
 }
