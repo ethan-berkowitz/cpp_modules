@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 15:32:09 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:41:12 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,10 +275,7 @@ unsigned int findInsertionIndex(Info &info,
 	// Compare value to value at middle index
 
 	info.comparisons++;
-	if (value == main[middle_index].value) {
-		return middle_index;
-	}
-	else if (value < main[middle_index].value) {
+	if (value < main[middle_index].value) {
 		if ((int)middle_index - (int)groupSize < 0){
 			upper = lower;
 		}
