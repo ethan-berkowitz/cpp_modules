@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/25 21:09:53 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 10:29:37 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,28 +92,7 @@ void printInsertVectors(Info &info,
 
 	unsigned int width = 2;
 
-	std::cout << info.reset << "main.value      : ";
-	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << std::setw(width) << main[i].value << " ";
-	}
-	std::cout << std::endl;
-
-	std::cout << info.reset << "main.matchLetter: ";
-	for (unsigned int i = 0; i < main.size(); i++) {
-		std::cout << std::setw(width) <<  main[i].matchLetter << " ";
-	}
-	std::cout << std::endl;
-
-	std::cout << info.reset << "main.matchNumber: ";
-	for (unsigned int i = 0; i < main.size(); i++) {
-		if (main[i].matchNumber == 0) {
-			std::cout << std::setw(width) <<  "-" << " ";
-		}
-		else {
-			std::cout << std::setw(width) <<  main[i].matchNumber << " ";
-		}
-	}
-	std::cout << std::endl << std::endl;
+	// PRINT PEND
 
 	std::cout << info.reset << "pend.value      : ";
 	for (unsigned int i = 0; i < pend.size(); i++) {
@@ -137,6 +116,34 @@ void printInsertVectors(Info &info,
 		}
 	}
 	std::cout << std::endl << std::endl;
+	
+	// PRINT MAIN
+
+	std::cout << info.reset << "main.value      : ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << std::setw(width) << main[i].value << " ";
+	}
+	std::cout << std::endl;
+
+	std::cout << info.reset << "main.matchLetter: ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		std::cout << std::setw(width) <<  main[i].matchLetter << " ";
+	}
+	std::cout << std::endl;
+
+	std::cout << info.reset << "main.matchNumber: ";
+	for (unsigned int i = 0; i < main.size(); i++) {
+		if (main[i].matchNumber == 0) {
+			std::cout << std::setw(width) <<  "-" << " ";
+		}
+		else {
+			std::cout << std::setw(width) <<  main[i].matchNumber << " ";
+		}
+	}
+	std::cout << std::endl << std::endl;
+
+
+	//PRINT NON-PARTICIPATING
 
 	std::cout << info.reset << "nonPartici.value: ";
 	for (unsigned int value : nonParticipating) {
@@ -280,10 +287,6 @@ void insertToMain(unsigned int pend_index,
 					std::vector<Element> &pend
 					) {
 
-	(void)insert_index;
-	(void)main;
-	(void)pend;
-
 	// Set starting position of pend and insert
 
 	unsigned int pend_start = pend_index - groupSize + 1;
@@ -357,10 +360,9 @@ void insertToMain(unsigned int pend_index,
 	}
 	std::cout << std::endl;
 
-	//TODO remove pend group
+	//Remove elements from pend
 
-	// need to remove group from the pend vector
-	// outcome was OK otherwise in first two! But keep checking
+	pend.erase(pend.begin() + pend_start, pend.begin() + pend_index + 1);
 
 
 
@@ -378,12 +380,17 @@ void handleBinaryInsertion(Info& info,
 	// Loop through jacobsthal numbers
 	for (unsigned int i = 1; i < 3; i++) { //CHANGE < 3 to size of jacobsthal array
 		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
-			//std::cout << "jacob = " << j << ", ";
+
+			// Check for empty pend
+
+			if (pend.size() == 0) {
+				return;
+			}
+			
 			// Find matching index for jacob in pend
 			unsigned int pend_index;
 			if (findIndexOfJacobNumber(j, groupSize, pend_index, pend)) {
 				printInsertVectors(info, main, pend, nonParticipating);
-				//std::cout << "pend = " << pend_index << ", ";
 				std::cout << "value = " << pend[pend_index].value << ", ";
 				// Find matching index for jacob in main
 				unsigned int main_index;
@@ -428,7 +435,6 @@ void handleInsertion(Info &info) {
 		return ;
 	}
 
-
 	unsigned int range = pow(2, info.level);
 	std::vector<Element> main;
 	std::vector<Element> pend;
@@ -438,7 +444,6 @@ void handleInsertion(Info &info) {
 	addOtherGroups(info, main, pend, nonParticipating, range);
 	addmatches(main, pend, range / 2);
 	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
-
 
 	info.level--;
 	handleInsertion(info);
