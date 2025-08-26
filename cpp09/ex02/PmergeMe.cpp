@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 11:37:14 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:06:37 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,10 @@ void printInsertVectors(Info &info,
 					std::vector<Element> &main,
 					std::vector<Element> &pend,
 					std::vector<unsigned int> &nonParticipating) {
+	
+	if (PRINT_MAIN_AND_PEND_DEBUG == false) {
+		return;
+	}
 
 	unsigned int width = 2;
 
@@ -178,7 +182,7 @@ void addOtherGroups(Info &info,
 
 	// Alternate adding groups to pend and main starting with pend
 	unsigned int i = range;
-	for (; i + groupSize < info.inputSize; i += groupSize) {
+	for (; i + groupSize - 1 < info.inputSize; i += groupSize) {
 		for (unsigned int j = 0; j < groupSize; j++) {
 			Element temp;
 			temp.value = info.input[i + j];
@@ -199,7 +203,7 @@ void addOtherGroups(Info &info,
 	}
 }
 
-void addmatches(std::vector<Element> &main, std::vector<Element> &pend, unsigned int groupSize) {
+void addMatchesToElements(std::vector<Element> &main, std::vector<Element> &pend, unsigned int groupSize) {
 	unsigned int mainSize = main.size();
 	unsigned int pendSize = pend.size();
 
@@ -255,35 +259,41 @@ unsigned int findInsertionIndex(Info &info,
 		}
 	}
 
-	// Debug
-	
-	//std::cout << "lower = " << lower << ", upper = " << upper << ", ";
 
 	// Find middle index
 
 	unsigned int groups_between = (upper - lower) / groupSize;
 	unsigned int middle_index = lower + ((groups_between / 2) * groupSize);
-	//std::cout << "middle = " << middle_index << ", ";
 	
+	// Debug
+	
+	if (PRINT_MAIN_AND_PEND_DEBUG) {
+		std::cout << "lower = " << lower << ", upper = " << upper << ", ";
+		std::cout << "middle = " << middle_index << std::endl;
+	}
+
 	// Compare value to value at middle index
 
 	info.comparisons++;
-	if (value < main[middle_index].value) {
+	if (value == main[middle_index].value) {
+		return middle_index;
+	}
+	else if (value < main[middle_index].value) {
 		if ((int)middle_index - (int)groupSize < 0){
 			upper = lower;
 		}
 		else {
 			upper = middle_index - groupSize;
+			if (upper < lower) {
+				upper = lower;
+			}
 		}
 	}
 	else {
 		lower = middle_index + groupSize;
 	}
-	//std::cout << std::endl;
 
 	return findInsertionIndex(info, value, lower, upper, groupSize, main);
-
-	
 }
 
 void insertToMain(unsigned int pend_index,
@@ -376,10 +386,6 @@ void insertToMain(unsigned int pend_index,
 
 	pend.erase(pend.begin() + pend_start, pend.begin() + pend_index + 1);
 
-
-
-	
-
 }
 
 void handleBinaryInsertion(Info& info,
@@ -388,9 +394,8 @@ void handleBinaryInsertion(Info& info,
 							unsigned int groupSize,
 							std::vector<unsigned int> &nonParticipating) {
 
-	std::cout << std::endl;
 	// Loop through jacobsthal numbers
-	for (unsigned int i = 1; i < 3; i++) { //CHANGE < 3 to size of jacobsthal array
+	for (unsigned int i = 1; i < 16; i++) {
 		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
 
 			// Check for empty pend
@@ -403,29 +408,21 @@ void handleBinaryInsertion(Info& info,
 			unsigned int pend_index;
 			if (findIndexOfJacobNumber(j, groupSize, pend_index, pend)) {
 				printInsertVectors(info, main, pend, nonParticipating);
-				//std::cout << "value = " << pend[pend_index].value << ", ";
 				// Find matching index for jacob in main
 				unsigned int main_index;
 				unsigned int insert_index;
 				if (findIndexOfJacobNumber(j, groupSize, main_index, main)) {
-					//std::cout << "main = " << main_index << ",\n";
 					insert_index = findInsertionIndex(info, pend[pend_index].value,
 													groupSize - 1, main_index - groupSize,
 													groupSize, main);
 				}
 				else {
-					//std::cout << "main = " << "--,\n";
 					insert_index = findInsertionIndex(info, pend[pend_index].value,
 													groupSize - 1, main.size() - 1,
 													groupSize, main);
 				}
-				//std::cout << "insert_index = " << insert_index << std::endl;
 				insertToMain(pend_index, insert_index, groupSize, main, pend);
 			}
-			else {
-				//std::cout << "--------,\n";
-			}
-			//std::cout << info.reset << "\n\n";
 		}
 	}
 
@@ -467,6 +464,7 @@ void handleInsertion(Info &info) {
 	if (info.level == 0) {
 		return ;
 	}
+
 	// Debug print Insert Levels
 	if (INSERTION_DEBUG) {
 		std::cout << std::endl;
@@ -474,12 +472,14 @@ void handleInsertion(Info &info) {
 		std::cout << info.cyan << "Insert Level " << info.level << std::endl;
 		std::cout << info.cyan << "------------------------------------------------------------\n";
 	}
+
 	// Skip level when there are less than 3 groups for insertion
-	if (info.inputSize < pow(2, info.level) * 2) {
+	if (info.inputSize < pow(2, info.level)) {
 		info.level--;
 		handleInsertion(info);
 		return ;
 	}
+
 	// Find the range of of the groups
 	unsigned int range = pow(2, info.level);
 	std::vector<Element> main;
@@ -488,7 +488,7 @@ void handleInsertion(Info &info) {
 
 	addFirstTwoGroupsToMain(info, main, range);
 	addOtherGroups(info, main, pend, nonParticipating, range);
-	addmatches(main, pend, range / 2);
+	addMatchesToElements(main, pend, range / 2);
 	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
 	updateInput(info, main, nonParticipating);
 
@@ -496,12 +496,22 @@ void handleInsertion(Info &info) {
 	handleInsertion(info);
 }
 
+void getExpectedComparisons(unsigned int &sum, unsigned int &n) {
+    sum = 0;
+    for (unsigned int k = 1; k <= n; ++k) {
+        double value = (3.0 / 4.0) * k;
+        sum += static_cast<int>(ceil(log2(value)));
+    }
+}
+
 void initInfo(Info &info) {
 	info.inputSize = info.input.size();
 	getMaxLevel(info);
+	getExpectedComparisons(info.expectedComparisons, info.inputSize);
 }
 
 void printResult(Info &info) {
+	std::cout << info.yellow << "Expected    = " << info.expectedComparisons << std::endl;
 	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
 
 	for (unsigned int i = 0; i < info.input.size(); i++) {
@@ -519,7 +529,4 @@ void PmergeMe(char **argv) {
 	handleInsertion(info);
 
 	printResult(info);
-
-	
-	
 }

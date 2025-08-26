@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 11:15:43 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:03:53 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,9 @@
 #include <algorithm> // swap
 
 #define SWAP_DEBUG false
-#define INSERTION_DEBUG true
-#define INSERTION_EXTRA_DEBUG true
+#define INSERTION_DEBUG false
+#define INSERTION_EXTRA_DEBUG false
+#define PRINT_MAIN_AND_PEND_DEBUG false
 #define MAIN_DEBUG false
 
 struct Element {
@@ -33,7 +34,8 @@ struct Info {
 	unsigned int maxLevel = 1;
 	unsigned int level = 1;
 	unsigned int inputSize;
-	unsigned int comparisons;
+	unsigned int comparisons = 0;
+	unsigned int expectedComparisons;
 	const unsigned int jacobsthal[16] = {1, 3, 5, 11, 21, 43, 85, 171, 341, 683,
 										1365, 2731, 5461, 10923, 21845, 43691};
 
