@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 10:36:14 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 10:52:47 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,11 +153,12 @@ void printInsertVectors(Info &info,
 
 }
 
-void addFirstTwoGroupsToMain(std::vector<Element> &main, unsigned int &range,
-							std::vector<unsigned int> &current_sequence) {
+void addFirstTwoGroupsToMain(Info &info,
+							std::vector<Element> &main,
+							unsigned int &range) {
 	for (unsigned int i = 0; i < range; i++) {
 		Element temp;
-		temp.value = current_sequence[i];
+		temp.value = info.input[i];
 		main.push_back(temp);
 	}
 }
@@ -166,8 +167,7 @@ void addOtherGroups(Info &info,
 					std::vector<Element> &main,
 					std::vector<Element> &pend,
 					std::vector<unsigned int> &nonParticipating,
-					unsigned int &range,
-					std::vector<unsigned int> &current_sequence) {
+					unsigned int &range) {
 
 	unsigned int groupSize = range / 2;
 	bool addToMain = false;
@@ -177,7 +177,7 @@ void addOtherGroups(Info &info,
 	for (; i + groupSize < info.inputSize; i += groupSize) {
 		for (unsigned int j = 0; j < groupSize; j++) {
 			Element temp;
-			temp.value = current_sequence[i + j];
+			temp.value = info.input[i + j];
 			if (addToMain) {
 				main.push_back(temp);
 			}
@@ -191,7 +191,7 @@ void addOtherGroups(Info &info,
 	// Add the rest to nonParticipating
 
 	for (; i < info.inputSize; i++) {
-		nonParticipating.push_back(current_sequence[i]);
+		nonParticipating.push_back(info.input[i]);
 	}
 }
 
@@ -421,7 +421,7 @@ void handleBinaryInsertion(Info& info,
 
 }
 
-void handleInsertion(Info &info, std::vector<unsigned int> &current_sequence) {
+void handleInsertion(Info &info) {
 	if (info.level == 0) {
 		return ;
 	}
@@ -433,7 +433,7 @@ void handleInsertion(Info &info, std::vector<unsigned int> &current_sequence) {
 		if (INSERTION_DEBUG) {
 			std::cout << info.reset << "SKIP" << std::endl; 
 		}
-		handleInsertion(info, current_sequence);
+		handleInsertion(info);
 		return ;
 	}
 
@@ -442,13 +442,13 @@ void handleInsertion(Info &info, std::vector<unsigned int> &current_sequence) {
 	std::vector<Element> pend;
 	std::vector<unsigned int> nonParticipating;
 
-	addFirstTwoGroupsToMain(main, range, current_sequence);
-	addOtherGroups(info, main, pend, nonParticipating, range, current_sequence);
+	addFirstTwoGroupsToMain(info, main, range);
+	addOtherGroups(info, main, pend, nonParticipating, range);
 	addmatches(main, pend, range / 2);
 	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
 
 	info.level--;
-	handleInsertion(info, current_sequence);
+	handleInsertion(info);
 }
 
 void initInfo(Info &info) {
@@ -462,7 +462,7 @@ void PmergeMe(char **argv) {
 	handleInput(argv, info);
 	initInfo(info);
 	handleComparisons(info);
-	handleInsertion(info, info.input);
+	handleInsertion(info);
 
 	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
 }
