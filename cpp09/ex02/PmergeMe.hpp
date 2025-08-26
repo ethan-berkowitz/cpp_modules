@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 15:03:53 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:36:42 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,21 @@
 #include <limits> // numeric_limits
 #include <cmath> // pow
 #include <algorithm> // swap
+#include <cstdlib> // random number generation in debugging
+#include <ctime> // random number generation in debugging
 
-#define SWAP_DEBUG false
-#define INSERTION_DEBUG false
-#define INSERTION_EXTRA_DEBUG false
-#define PRINT_MAIN_AND_PEND_DEBUG false
-#define MAIN_DEBUG false
+#define SWAP_DEBUG					false
+#define INSERTION_DEBUG				false
+#define INSERTION_EXTRA_DEBUG		false
+#define PRINT_MAIN_AND_PEND_DEBUG	false
+#define MAIN_DEBUG					false
+#define PRINT_STARTING_INPUT		false
+#define PRINT_EXPECTED_COMPARISONS	false
+#define PRINT_CHECK_FOR_SORTED		false
+
+#define GENERATE_RANDOM_INPUT		false
+#define NUM_OF_VALUES				21
+#define RANGE_OF_VALUES				99
 
 struct Element {
 	unsigned int value;

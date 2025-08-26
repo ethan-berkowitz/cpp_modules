@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 15:06:37 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 15:32:09 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -510,12 +510,40 @@ void initInfo(Info &info) {
 	getExpectedComparisons(info.expectedComparisons, info.inputSize);
 }
 
-void printResult(Info &info) {
-	std::cout << info.yellow << "Expected    = " << info.expectedComparisons << std::endl;
-	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
+void checkIfSorted(std::vector<unsigned int> &input) {
+	for (unsigned int i = 0; i < input.size() - 1; i++) {
+		if (input[i] > input[i + 1]) {
+			std::cout << "Sorted      = " << "NO" << std::endl;
+		}
+	}
+	std::cout << "Sorted      = " << "YES" << std::endl;
+}
 
+void printResult(Info &info) {
+	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
+	if (PRINT_EXPECTED_COMPARISONS) {
+		std::cout << info.yellow << "Expected    = " << info.expectedComparisons << std::endl;
+	}
+	if (PRINT_CHECK_FOR_SORTED) {
+		checkIfSorted(info.input);
+	}
 	for (unsigned int i = 0; i < info.input.size(); i++) {
 		std::cout << info.input[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
+void generateRandomInput(Info &info) {
+	std::srand(std::time(nullptr));
+	for (unsigned int i = 0; i < NUM_OF_VALUES; i++) {
+		unsigned int random_number = std::rand() % (RANGE_OF_VALUES + 1);
+		info.input.push_back(random_number);
+	}
+}
+
+void printStartingInput(Info &info) {
+	for (unsigned int i = 0; i < info.input.size(); i++) {
+		std::cout << info.green << info.input[i] << " ";
 	}
 	std::cout << std::endl;
 }
@@ -523,7 +551,15 @@ void printResult(Info &info) {
 void PmergeMe(char **argv) {
 	Info info;
 
-	handleInput(argv, info);
+	if (GENERATE_RANDOM_INPUT) {
+		generateRandomInput(info);
+	}
+	else {
+		handleInput(argv, info);
+	}
+	if (PRINT_STARTING_INPUT) {
+		printStartingInput(info);
+	}
 	initInfo(info);
 	handleSwaps(info);
 	handleInsertion(info);
