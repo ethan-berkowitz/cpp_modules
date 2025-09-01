@@ -6,11 +6,16 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/01 11:25:49 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:28:46 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PmergeMe.hpp"
+
+// ----------------------------------------------------------------------------
+// VECTOR AND SHARED ----------------------------------------------------------
+// ----------------------------------------------------------------------------
+
 
 void handleInput(char **argv, Info &info) {
 	for (int i = 1; argv[i]; i++) {
@@ -549,6 +554,171 @@ void printStartingInput(Info &info) {
 	std::cout << std::endl;
 }
 
+// ----------------------------------------------------------------------------
+// LIST -----------------------------------------------------------------------
+// ----------------------------------------------------------------------------
+
+void handleInputDeque(char **argv, Info &info) {
+	for (int i = 1; argv[i]; i++) {
+		unsigned long temp;
+		try {
+			temp = std::stoul(argv[i]);
+		} catch (...) {
+			throw std::runtime_error("Error: invalid input");
+		}
+		if (temp > std::numeric_limits<unsigned int>::max()) {
+			throw std::runtime_error("Error: input is not an unsigned int");
+		}
+		unsigned int n = static_cast<unsigned int>(temp);
+		info.inputDeque.push_back(n);
+	}	
+}
+
+void printStartingInputDeque(Info &info) {
+	std::cout << info.green << "Before: ";
+	for (unsigned int i = 0; i < info.inputDeque.size(); i++) {
+		std::cout << info.green << info.inputDeque[i] << " ";
+	}
+	std::cout << std::endl;
+}
+
+void initInfoDeque(Info &info) {
+	info.inputSize = info.inputDeque.size();
+	getMaxLevel(info);
+	getExpectedComparisons(info.expectedComparisons, info.inputSize);
+}
+
+void swapGivenRangeDeque(Info &info, unsigned int &start, unsigned int &range) {
+	for (unsigned int i = 0; i < range / 2; i++) {
+		std::swap(info.inputDeque[i + start], info.inputDeque[i + start + (range / 2)]);
+	}
+}
+
+void handleSwapsDeque(Info &info) {
+	unsigned int range = pow(2, info.level);
+	unsigned int disA = range / 2 - 1;
+	unsigned int disB = range - 1;
+	bool swapped = false;
+
+	for (unsigned int i = 0; i + range - 1 < info.inputSize; i += range) {
+		info.comparisons++;
+		if (info.inputDeque[i + disA] > info.inputDeque[i + disB]) {
+			swapped = true;
+			swapGivenRangeDeque(info, i, range);
+		}
+		else {
+			swapped = false;
+		}
+	}
+	if (info.level < info.maxLevel) {
+		info.level++;
+		handleSwapsDeque(info);
+	}
+}
+
+void addFirstTwoGroupsToMainDeque(Info &info,
+							std::deque<Element> &main,
+							unsigned int &range) {
+	for (unsigned int i = 0; i < range; i++) {
+		Element temp;
+		temp.value = info.inputDeque[i];
+		main.push_back(temp);
+	}
+}
+
+void addOtherGroupsDeque(Info &info,
+					std::deque<Element> &main,
+					std::deque<Element> &pend,
+					std::deque<unsigned int> &nonParticipating,
+					unsigned int &range) {
+
+	unsigned int groupSize = range / 2;
+	bool addToMain = false;
+
+	// Alternate adding groups to pend and main starting with pend
+	unsigned int i = range;
+	for (; i + groupSize - 1 < info.inputSize; i += groupSize) {
+		for (unsigned int j = 0; j < groupSize; j++) {
+			Element temp;
+			temp.value = info.inputDeque[i + j];
+			if (addToMain) {
+				main.push_back(temp);
+			}
+			else {
+				pend.push_back(temp);
+			}
+		}
+		addToMain = !addToMain;
+	}
+
+	// Add the rest to nonParticipating
+
+	for (; i < info.inputSize; i++) {
+		nonParticipating.push_back(info.inputDeque[i]);
+	}
+}
+
+void addOtherGroupsDeque(Info &info,
+					std::deque<Element> &main,
+					std::deque<Element> &pend,
+					std::deque<unsigned int> &nonParticipating,
+					unsigned int &range) {
+
+	unsigned int groupSize = range / 2;
+	bool addToMain = false;
+
+	// Alternate adding groups to pend and main starting with pend
+	unsigned int i = range;
+	for (; i + groupSize - 1 < info.inputSize; i += groupSize) {
+		for (unsigned int j = 0; j < groupSize; j++) {
+			Element temp;
+			temp.value = info.input[i + j];
+			if (addToMain) {
+				main.push_back(temp);
+			}
+			else {
+				pend.push_back(temp);
+			}
+		}
+		addToMain = !addToMain;
+	}
+
+	// Add the rest to nonParticipating
+
+	for (; i < info.inputSize; i++) {
+		nonParticipating.push_back(info.inputDeque[i]);
+	}
+}
+
+void handleInsertionDeque(Info &info) {
+	// End insertion when level is 0
+	if (info.level == 0) {
+		return ;
+	}
+
+	// Skip level when there are less than 3 groups for insertion
+	if (info.inputSize < pow(2, info.level)) {
+		info.level--;
+		handleInsertion(info);
+		return ;
+	}
+
+	// Find the range of of the groups
+	unsigned int range = pow(2, info.level);
+	std::deque<Element> main;
+	std::deque<Element> pend;
+	std::deque<unsigned int> nonParticipating;
+
+	addFirstTwoGroupsToMainDeque(info, main, range);
+	addOtherGroupsDeque(info, main, pend, nonParticipating, range);
+	addMatchesToElements(main, pend, range / 2);
+	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
+	updateInput(info, main, nonParticipating);
+
+	info.level--;
+	handleInsertion(info);
+}
+
 void PmergeMe(char **argv) {
 	
 	// Vector -----------------------------------------------------------------
@@ -574,5 +744,24 @@ void PmergeMe(char **argv) {
 	std::cout << "Time to process a range of " << info.inputSize << " with std::vector : "
 		<< elapsed.count() << std::endl;
 	
-	// List -------------------------------------------------------------------
+	std::cout << std::endl;
+	
+	// Deque -------------------------------------------------------------------
+
+	auto startDeque = std::chrono::high_resolution_clock::now();
+
+	Info infoDeque;
+
+	handleInputDeque(argv, infoDeque);
+	printStartingInputDeque(infoDeque);
+
+	initInfoDeque(infoDeque);
+	handleSwapsDeque(infoDeque);
+	handleInsertionDeque(infoDeque);
+	
+
+	auto endDeque = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsedDeque = endDeque - startDeque;
+	std::cout << "Time to process a range of " << info.inputSize << " with std::deque : "
+		<< elapsedDeque.count() << std::endl;
 }

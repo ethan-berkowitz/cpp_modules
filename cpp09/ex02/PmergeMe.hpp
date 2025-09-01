@@ -6,13 +6,14 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/01 11:27:54 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/01 15:28:17 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream> // std::cout
 #include <iomanip> // std::setw
 #include <vector> // vector
+#include <deque> // deque
 #include <limits> // numeric_limits
 #include <cmath> // pow
 #include <algorithm> // swap
@@ -40,7 +41,8 @@ struct Element {
 };
 
 struct Info {
-	std::vector<unsigned int > input;
+	std::vector<unsigned int> input;
+	std::deque<unsigned int> inputDeque;
 	unsigned int maxLevel = 1;
 	unsigned int level = 1;
 	unsigned int inputSize;
