@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 15:41:12 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/01 11:25:49 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -517,17 +517,20 @@ void checkIfSorted(std::vector<unsigned int> &input) {
 }
 
 void printResult(Info &info) {
-	std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
+	std::cout << info.green << "After:  ";
+	for (unsigned int i = 0; i < info.input.size(); i++) {
+		std::cout <<  info.green << info.input[i] << " ";
+	}
+	std::cout << std::endl;
+	if (COMPARISONS_DEBUG) {
+		std::cout << info.yellow << "Comparisons = " << info.comparisons << std::endl;
+	}
 	if (PRINT_EXPECTED_COMPARISONS) {
 		std::cout << info.yellow << "Expected    = " << info.expectedComparisons << std::endl;
 	}
 	if (PRINT_CHECK_FOR_SORTED) {
 		checkIfSorted(info.input);
 	}
-	for (unsigned int i = 0; i < info.input.size(); i++) {
-		std::cout << info.input[i] << " ";
-	}
-	std::cout << std::endl;
 }
 
 void generateRandomInput(Info &info) {
@@ -539,6 +542,7 @@ void generateRandomInput(Info &info) {
 }
 
 void printStartingInput(Info &info) {
+	std::cout << info.green << "Before: ";
 	for (unsigned int i = 0; i < info.input.size(); i++) {
 		std::cout << info.green << info.input[i] << " ";
 	}
@@ -546,6 +550,11 @@ void printStartingInput(Info &info) {
 }
 
 void PmergeMe(char **argv) {
+	
+	// Vector -----------------------------------------------------------------
+	
+	auto start = std::chrono::high_resolution_clock::now();
+
 	Info info;
 
 	if (GENERATE_RANDOM_INPUT) {
@@ -554,12 +563,16 @@ void PmergeMe(char **argv) {
 	else {
 		handleInput(argv, info);
 	}
-	if (PRINT_STARTING_INPUT) {
-		printStartingInput(info);
-	}
+	printStartingInput(info);
+	
 	initInfo(info);
 	handleSwaps(info);
 	handleInsertion(info);
-
 	printResult(info);
+	auto end = std::chrono::high_resolution_clock::now();
+	std::chrono::duration<double> elapsed = end - start;
+	std::cout << "Time to process a range of " << info.inputSize << " with std::vector : "
+		<< elapsed.count() << std::endl;
+	
+	// List -------------------------------------------------------------------
 }

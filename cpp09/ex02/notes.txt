@@ -12,3 +12,18 @@ node.largest = 5
 node.vector.other = NULL;
 level = 1;
 type = "leftover";
+
+
+pend: 1 2 3 4
+main: 5 6 7 9
+
+1 2
+5 6
+
+temp = 7 9
+
+main: 5 6
+
+main: 5 6 1 2
+
+main: 5 6 1 2 7 9
