@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/26 15:42:07 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/08/26 17:19:33 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <algorithm> // swap
 #include <cstdlib> // random number generation in debugging
 #include <ctime> // random number generation in debugging
+#include <chrono>
 
 #define SWAP_DEBUG					false
 #define INSERTION_DEBUG				false
@@ -29,8 +30,8 @@
 #define PRINT_CHECK_FOR_SORTED		true
 
 #define GENERATE_RANDOM_INPUT		true
-#define NUM_OF_VALUES				23
-#define RANGE_OF_VALUES				99
+#define NUM_OF_VALUES				3000
+#define RANGE_OF_VALUES				100000
 
 struct Element {
 	unsigned int value;
