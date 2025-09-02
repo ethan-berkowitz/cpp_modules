@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:48:43 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/11 12:15:23 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:26:56 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int main()
 
 			std::cout << "shortestSpan = " << sp.shortestSpan() << std::endl;
 			std::cout << "longestSpan = " << sp.longestSpan() << std::endl;
+
 		} catch(const std::exception &e) {
 			std::cerr << "Exception caught " << e.what() << "\n";
 		}
@@ -47,10 +48,10 @@ int main()
 			std::cout << "\033[1;33m\n----- EXCEPTION FOR ADD NUMBER -----\n\n\033[0m";
 			
 			Span sp = Span(3);
+			sp.addNumber(1);
+			sp.addNumber(2);
 			sp.addNumber(3);
-			sp.addNumber(5);
-			sp.addNumber(9);
-			sp.addNumber(17);
+			sp.addNumber(4);
 		} catch(const std::exception &e) {
 			std::cerr << "Exception caught " << e.what() << "\n";
 		}
