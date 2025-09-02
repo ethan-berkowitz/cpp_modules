@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/02 11:03:45 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:11:45 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,10 @@ void getMaxLevel(Info &info) {
 	}
 }
 
-void printInputAndHighlightSwaps (Info &info, unsigned int first, unsigned int second, bool swapped) {
+void printInputAndHighlightSwaps (Info &info,
+	unsigned int first,
+	unsigned int second, bool swapped) {
+
 	unsigned int width = 2;
 	for (unsigned int j = 0; j < info.inputSize; j++) {
 		if (j == first || j == second) {
@@ -208,7 +211,8 @@ void addOtherGroups(Info &info,
 	}
 }
 
-void addMatchesToElements(std::vector<Element> &main, std::vector<Element> &pend, unsigned int groupSize) {
+void addMatchesToElements(std::vector<Element> &main, std::vector<Element> &pend,
+	unsigned int groupSize) {
 	unsigned int mainSize = main.size();
 	unsigned int pendSize = pend.size();
 
@@ -264,7 +268,6 @@ unsigned int findInsertionIndex(Info &info,
 		}
 	}
 
-
 	// Find middle index
 
 	unsigned int groups_between = (upper - lower) / groupSize;
@@ -308,9 +311,7 @@ void insertToMain(unsigned int pend_index,
 	// Set starting position of pend and insert
 
 	unsigned int pend_start = pend_index - groupSize + 1;
-	//std::cout << "\033[32m" << "pend_start = " << pend_start << "\n";
 	unsigned int insert_start = insert_index - groupSize + 1;
-	//std::cout << "\033[32m" << "insert_start = " << insert_start << "\n";
 
 	// Hold on to main values that we want to shift
 
@@ -322,14 +323,6 @@ void insertToMain(unsigned int pend_index,
 		element.value = main[i].value;
 		temp.push_back(element);
 	}
-
-	// Print temp for debug
-
-	// std::cout << "temp = ";
-	// for (unsigned int i = 0; i < temp.size(); i++) {
-	// 	std::cout << temp[i].value << " ";
-	// }
-	// std::cout << std::endl;
 
 	// Remove shifting values from main
 
@@ -433,6 +426,7 @@ void handleBinaryInsertion(Info& info,
 void updateInput(Info &info,
 				std::vector<Element> &main,
 				std::vector<unsigned int> nonParticipating) {
+
 	// Erase entire input
 
 	info.input.clear();
@@ -462,12 +456,15 @@ void updateInput(Info &info,
 }
 
 void handleInsertion(Info &info) {
+
 	// End insertion when level is 0
+	
 	if (info.level == 0) {
 		return ;
 	}
 
 	// Debug print Insert Levels
+
 	if (INSERTION_DEBUG) {
 		std::cout << std::endl;
 		std::cout << info.cyan << "------------------------------------------------------------\n";
@@ -476,6 +473,7 @@ void handleInsertion(Info &info) {
 	}
 
 	// Skip level when there are less than 3 groups for insertion
+
 	if (info.inputSize < pow(2, info.level)) {
 		info.level--;
 		handleInsertion(info);
@@ -483,6 +481,7 @@ void handleInsertion(Info &info) {
 	}
 
 	// Find the range of of the groups
+
 	unsigned int range = pow(2, info.level);
 	std::vector<Element> main;
 	std::vector<Element> pend;
@@ -636,6 +635,7 @@ void addOtherGroupsDeque(Info &info,
 	bool addToMain = false;
 
 	// Alternate adding groups to pend and main starting with pend
+
 	unsigned int i = range;
 	for (; i + groupSize - 1 < info.inputSize; i += groupSize) {
 		for (unsigned int j = 0; j < groupSize; j++) {
@@ -798,9 +798,10 @@ void handleBinaryInsertionDeque(Info& info,
 							std::deque<Element> &pend,
 							unsigned int groupSize,
 							std::deque<unsigned int> &nonParticipating) {
-
 	(void)nonParticipating;
+
 	// Loop through jacobsthal numbers
+
 	for (unsigned int i = 1; i < 16; i++) {
 		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
 
@@ -811,6 +812,7 @@ void handleBinaryInsertionDeque(Info& info,
 			}
 			
 			// Find matching index for jacob in pend
+
 			unsigned int pend_index;
 			if (findIndexOfJacobNumberDeque(j, groupSize, pend_index, pend)) {
 				// Find matching index for jacob in main
@@ -836,6 +838,7 @@ void handleBinaryInsertionDeque(Info& info,
 void updateInputDeque(Info &info,
 				std::deque<Element> &main,
 				std::deque<unsigned int> nonParticipating) {
+
 	// Erase entire input
 
 	info.inputDeque.clear();
@@ -861,16 +864,18 @@ void updateInputDeque(Info &info,
 		}
 		std::cout << std::endl;
 	}
-	
 }
 
 void handleInsertionDeque(Info &info) {
+
 	// End insertion when level is 0
+
 	if (info.level == 0) {
 		return ;
 	}
 
 	// Skip level when there are less than 3 groups for insertion
+
 	if (info.inputSize < pow(2, info.level)) {
 		info.level--;
 		handleInsertionDeque(info);
@@ -878,6 +883,7 @@ void handleInsertionDeque(Info &info) {
 	}
 
 	// Find the range of of the groups
+
 	unsigned int range = pow(2, info.level);
 	std::deque<Element> main;
 	std::deque<Element> pend;
