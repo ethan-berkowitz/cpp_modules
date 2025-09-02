@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/01 15:28:46 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/02 11:03:45 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -658,36 +658,210 @@ void addOtherGroupsDeque(Info &info,
 	}
 }
 
-void addOtherGroupsDeque(Info &info,
-					std::deque<Element> &main,
-					std::deque<Element> &pend,
-					std::deque<unsigned int> &nonParticipating,
-					unsigned int &range) {
+void addMatchesToElementsDeque(std::deque<Element> &main, std::deque<Element> &pend,
+	unsigned int groupSize) {
+	unsigned int mainSize = main.size();
+	unsigned int pendSize = pend.size();
 
-	unsigned int groupSize = range / 2;
-	bool addToMain = false;
+	// Add to main
 
-	// Alternate adding groups to pend and main starting with pend
-	unsigned int i = range;
-	for (; i + groupSize - 1 < info.inputSize; i += groupSize) {
-		for (unsigned int j = 0; j < groupSize; j++) {
-			Element temp;
-			temp.value = info.input[i + j];
-			if (addToMain) {
-				main.push_back(temp);
-			}
-			else {
-				pend.push_back(temp);
+	unsigned int matchNumber = 1;
+	main[groupSize - 1].matchNumber = matchNumber;
+	main[groupSize - 1].matchLetter = 'b';
+	for (unsigned int i = groupSize; i < mainSize; i += groupSize) {
+		main[i + groupSize - 1].matchNumber = matchNumber;
+		main[i + groupSize - 1].matchLetter = 'a';
+		matchNumber++;
+	}
+
+	// Add to pend
+
+	matchNumber = 2;
+	for (unsigned int i = 0; i < pendSize; i += groupSize) {
+		pend[i + groupSize - 1].matchNumber = matchNumber;
+		pend[i + groupSize - 1].matchLetter = 'b';
+		matchNumber++;
+	}
+}
+
+int findIndexOfJacobNumberDeque(unsigned int j,
+							unsigned int groupSize,
+							unsigned int &index,
+							std::deque<Element> &elements) {
+	for (index = groupSize - 1; index < elements.size(); index += 1) {
+		if (j == elements[index].matchNumber) {
+			return true;
+		}
+	}
+	return false;
+}
+
+unsigned int findInsertionIndexDeque(Info &info,
+					unsigned int value,
+					unsigned int lower,
+					unsigned int upper,
+					unsigned int groupSize,
+					std::deque<Element> &main) {
+	
+	// Check if we found the index
+
+	if (upper == lower) {
+		info.comparisons++;
+		if (value < main[lower].value) {
+			return lower;
+		}
+		else {
+			return lower + groupSize;
+		}
+	}
+
+	// Find middle index
+
+	unsigned int groups_between = (upper - lower) / groupSize;
+	unsigned int middle_index = lower + ((groups_between / 2) * groupSize);
+
+	// Compare value to value at middle index
+
+	info.comparisons++;
+	if (value < main[middle_index].value) {
+		if ((int)middle_index - (int)groupSize < 0){
+			upper = lower;
+		}
+		else {
+			upper = middle_index - groupSize;
+			if (upper < lower) {
+				upper = lower;
 			}
 		}
-		addToMain = !addToMain;
+	}
+	else {
+		lower = middle_index + groupSize;
 	}
 
-	// Add the rest to nonParticipating
+	return findInsertionIndexDeque(info, value, lower, upper, groupSize, main);
+}
 
-	for (; i < info.inputSize; i++) {
-		nonParticipating.push_back(info.inputDeque[i]);
+void insertToMainDeque(unsigned int pend_index,
+					unsigned int insert_index,
+					unsigned int groupSize,
+					std::deque<Element> &main,
+					std::deque<Element> &pend
+					) {
+
+	// Set starting position of pend and insert
+
+	unsigned int pend_start = pend_index - groupSize + 1;
+	unsigned int insert_start = insert_index - groupSize + 1;
+
+	// Hold on to main values that we want to shift
+
+	std::vector<Element> temp;
+	for (unsigned int i = insert_start; i < main.size(); i++) {
+		Element element;
+		element.matchLetter = main[i].matchLetter;
+		element.matchNumber = main[i].matchNumber;
+		element.value = main[i].value;
+		temp.push_back(element);
 	}
+
+	// Remove shifting values from main
+
+	unsigned int size = main.size();
+	for (unsigned int i = insert_start; i < size; i++) {
+		main.pop_back();
+	}
+
+	// Insert pend group into main
+
+	for (unsigned int i = 0; i < groupSize; i++) {
+		Element element;
+		element.matchLetter = pend[i + pend_start].matchLetter;
+		element.matchNumber = pend[i + pend_start].matchNumber;
+		element.value = pend[i + pend_start].value;
+		main.push_back(element);
+	}
+
+	// Add back the shifted main values
+
+	for (unsigned int i = 0; i < temp.size(); i++) {
+		main.push_back(temp[i]);
+	}
+
+	//Remove elements from pend
+
+	pend.erase(pend.begin() + pend_start, pend.begin() + pend_index + 1);
+
+}
+
+void handleBinaryInsertionDeque(Info& info,
+							std::deque<Element> &main,
+							std::deque<Element> &pend,
+							unsigned int groupSize,
+							std::deque<unsigned int> &nonParticipating) {
+
+	(void)nonParticipating;
+	// Loop through jacobsthal numbers
+	for (unsigned int i = 1; i < 16; i++) {
+		for (unsigned int j = info.jacobsthal[i]; j > info.jacobsthal[i - 1]; j--) {
+
+			// Check for empty pend
+
+			if (pend.size() == 0) {
+				return;
+			}
+			
+			// Find matching index for jacob in pend
+			unsigned int pend_index;
+			if (findIndexOfJacobNumberDeque(j, groupSize, pend_index, pend)) {
+				// Find matching index for jacob in main
+				unsigned int main_index;
+				unsigned int insert_index;
+				if (findIndexOfJacobNumberDeque(j, groupSize, main_index, main)) {
+					insert_index = findInsertionIndexDeque(info, pend[pend_index].value,
+													groupSize - 1, main_index - groupSize,
+													groupSize, main);
+				}
+				else {
+					insert_index = findInsertionIndexDeque(info, pend[pend_index].value,
+													groupSize - 1, main.size() - 1,
+													groupSize, main);
+				}
+				insertToMainDeque(pend_index, insert_index, groupSize, main, pend);
+			}
+		}
+	}
+
+}
+
+void updateInputDeque(Info &info,
+				std::deque<Element> &main,
+				std::deque<unsigned int> nonParticipating) {
+	// Erase entire input
+
+	info.inputDeque.clear();
+
+	// Add element values from main to input
+
+	for (unsigned int i = 0; i < main.size(); i++) {
+		info.inputDeque.push_back(main[i].value);
+	}
+
+	// Add values from non participating to input
+
+	for (unsigned int i = 0; i < nonParticipating.size(); i++) {
+		info.inputDeque.push_back(nonParticipating[i]);
+	}
+
+	// Print input for debug
+
+	if (INSERTION_DEBUG) {
+		std::cout << "\nupdated input = ";
+		for (unsigned int i = 0; i < info.input.size(); i++) {
+			std::cout << info.green << info.inputDeque[i] << " ";
+		}
+		std::cout << std::endl;
+	}
+	
 }
 
 void handleInsertionDeque(Info &info) {
@@ -699,7 +873,7 @@ void handleInsertionDeque(Info &info) {
 	// Skip level when there are less than 3 groups for insertion
 	if (info.inputSize < pow(2, info.level)) {
 		info.level--;
-		handleInsertion(info);
+		handleInsertionDeque(info);
 		return ;
 	}
 
@@ -711,12 +885,20 @@ void handleInsertionDeque(Info &info) {
 
 	addFirstTwoGroupsToMainDeque(info, main, range);
 	addOtherGroupsDeque(info, main, pend, nonParticipating, range);
-	addMatchesToElements(main, pend, range / 2);
-	handleBinaryInsertion(info, main, pend, range / 2, nonParticipating);
-	updateInput(info, main, nonParticipating);
+	addMatchesToElementsDeque(main, pend, range / 2);
+	handleBinaryInsertionDeque(info, main, pend, range / 2, nonParticipating);
+	updateInputDeque(info, main, nonParticipating);
 
 	info.level--;
-	handleInsertion(info);
+	handleInsertionDeque(info);
+}
+
+void printResultDeque(Info &info) {
+	std::cout << info.green << "After:  ";
+	for (unsigned int i = 0; i < info.inputDeque.size(); i++) {
+		std::cout <<  info.green << info.inputDeque[i] << " ";
+	}
+	std::cout << std::endl;
 }
 
 void PmergeMe(char **argv) {
@@ -758,6 +940,7 @@ void PmergeMe(char **argv) {
 	initInfoDeque(infoDeque);
 	handleSwapsDeque(infoDeque);
 	handleInsertionDeque(infoDeque);
+	printResultDeque(infoDeque);
 	
 
 	auto endDeque = std::chrono::high_resolution_clock::now();
