@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/19 14:55:59 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/02 10:53:44 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,7 @@ void parseData(std::map<std::string, float> &data) {
 		temp_stream >> std::get_time(&time, "%Y-%m-%d");
 		//std::cout << "    " << time.tm_year + 1900 << " " << time.tm_mon + 1 << " " << time.tm_mday << std::endl;
 
-		// TODO Validate date
+		// Validate date
 
 		 if (!validate_date(time, date_string)) {
 			throw std::runtime_error("Error: Invalid date");
