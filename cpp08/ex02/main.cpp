@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:48:43 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/08/12 15:35:19 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/02 13:36:42 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int main()
     mstack.push(60);
 
     // Forward iteration
+
     MutantStack<int>::iterator it = mstack.begin();
     MutantStack<int>::iterator ite = mstack.end();
 
