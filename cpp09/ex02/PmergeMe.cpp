@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/02 11:11:45 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/03 11:44:59 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -507,6 +507,9 @@ void getExpectedComparisons(unsigned int &sum, unsigned int &n) {
 
 void initInfo(Info &info) {
 	info.inputSize = info.input.size();
+	if (info.inputSize > MAX_INPUT_SIZE) {
+		throw std::runtime_error("Error: input size too large");
+	}
 	getMaxLevel(info);
 	getExpectedComparisons(info.expectedComparisons, info.inputSize);
 }
@@ -542,6 +545,7 @@ void generateRandomInput(Info &info) {
 	for (unsigned int i = 0; i < NUM_OF_VALUES; i++) {
 		unsigned int random_number = std::rand() % (RANGE_OF_VALUES + 1);
 		info.input.push_back(random_number);
+		info.inputDeque.push_back(random_number);
 	}
 }
 
@@ -574,6 +578,7 @@ void handleInputDeque(char **argv, Info &info) {
 }
 
 void printStartingInputDeque(Info &info) {
+	std::cout << std::endl;
 	std::cout << info.green << "Before: ";
 	for (unsigned int i = 0; i < info.inputDeque.size(); i++) {
 		std::cout << info.green << info.inputDeque[i] << " ";
@@ -583,6 +588,9 @@ void printStartingInputDeque(Info &info) {
 
 void initInfoDeque(Info &info) {
 	info.inputSize = info.inputDeque.size();
+	if (info.inputSize > MAX_INPUT_SIZE) {
+		throw std::runtime_error("Error: input size too large");
+	}
 	getMaxLevel(info);
 	getExpectedComparisons(info.expectedComparisons, info.inputSize);
 }
@@ -911,14 +919,16 @@ void PmergeMe(char **argv) {
 	
 	// Vector -----------------------------------------------------------------
 	
-	auto start = std::chrono::high_resolution_clock::now();
-
+	
 	Info info;
-
+	
 	if (GENERATE_RANDOM_INPUT) {
 		generateRandomInput(info);
 	}
-	else {
+
+	auto start = std::chrono::high_resolution_clock::now();
+
+	if (!GENERATE_RANDOM_INPUT) {
 		handleInput(argv, info);
 	}
 	printStartingInput(info);
@@ -928,11 +938,10 @@ void PmergeMe(char **argv) {
 	handleInsertion(info);
 	printResult(info);
 	auto end = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> elapsed = end - start;
+	auto elapsed = std::chrono::duration_cast<std::chrono::microseconds> (end - start);
+
 	std::cout << "Time to process a range of " << info.inputSize << " with std::vector : "
-		<< elapsed.count() << std::endl;
-	
-	std::cout << std::endl;
+		<< elapsed.count() << " us" << std::endl;
 	
 	// Deque -------------------------------------------------------------------
 
@@ -940,17 +949,27 @@ void PmergeMe(char **argv) {
 
 	Info infoDeque;
 
-	handleInputDeque(argv, infoDeque);
-	printStartingInputDeque(infoDeque);
+	if (GENERATE_RANDOM_INPUT) {
+		infoDeque.inputDeque = info.inputDeque;
+	}
+	else {
+		handleInputDeque(argv, infoDeque);
+	}
+	if (PRINT_DEQUE_RESULT) {
+		printStartingInputDeque(infoDeque);
+	}
 
 	initInfoDeque(infoDeque);
 	handleSwapsDeque(infoDeque);
 	handleInsertionDeque(infoDeque);
-	printResultDeque(infoDeque);
+	if (PRINT_DEQUE_RESULT) {
+		printResultDeque(infoDeque);
+	}
 	
-
 	auto endDeque = std::chrono::high_resolution_clock::now();
-	std::chrono::duration<double> elapsedDeque = endDeque - startDeque;
-	std::cout << "Time to process a range of " << info.inputSize << " with std::deque : "
-		<< elapsedDeque.count() << std::endl;
+	auto elapsedDeque = std::chrono::duration_cast<std::chrono::microseconds> (endDeque - startDeque);
+
+	
+	std::cout << "Time to process a range of " << info.inputSize << " with std::deque  : "
+		<< elapsedDeque.count() << " us" << std::endl;
 }

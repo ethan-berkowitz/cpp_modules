@@ -6,7 +6,7 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/01 15:28:17 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/03 13:06:07 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,13 @@
 #define PRINT_EXPECTED_COMPARISONS	false
 #define PRINT_CHECK_FOR_SORTED		false
 #define COMPARISONS_DEBUG			false
-
+#define PRINT_DEQUE_RESULT			false
 #define GENERATE_RANDOM_INPUT		false
-#define NUM_OF_VALUES				21
-#define RANGE_OF_VALUES				99
+
+#define NUM_OF_VALUES				3000
+#define RANGE_OF_VALUES				10000
+
+#define MAX_INPUT_SIZE				3000
 
 struct Element {
 	unsigned int value;
