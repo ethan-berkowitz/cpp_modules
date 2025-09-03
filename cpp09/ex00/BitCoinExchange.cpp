@@ -6,14 +6,13 @@
 /*   By: eberkowi <eberkowi@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 11:51:58 by eberkowi          #+#    #+#             */
-/*   Updated: 2025/09/02 10:53:44 by eberkowi         ###   ########.fr       */
+/*   Updated: 2025/09/03 09:44:21 by eberkowi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "BitCoinExchange.hpp"
 
 bool validate_leapyear(std::tm date) {
-	// curly brances are needed to initialize std::tm
 	struct std::tm test_date{};
 	test_date = date;
 	std::mktime(&test_date);
@@ -174,7 +173,6 @@ void parseData(std::map<std::string, float> &data) {
 		if ((end = line.find(",", 0)) == std::string::npos) {
 			throw std::runtime_error("Error: data.csv is missing a comma delimiter");
 		}
-		//std::cout << line << std::endl;
 
 		// Convert date to tm
 
@@ -183,7 +181,6 @@ void parseData(std::map<std::string, float> &data) {
 		std::tm time{};
 		memset(&time, 0, sizeof(time));
 		temp_stream >> std::get_time(&time, "%Y-%m-%d");
-		//std::cout << "    " << time.tm_year + 1900 << " " << time.tm_mon + 1 << " " << time.tm_mday << std::endl;
 
 		// Validate date
 
@@ -194,14 +191,12 @@ void parseData(std::map<std::string, float> &data) {
 		// Convert exchange rate to float
 
 		std::string temp_str(line.substr(end + 1));
-		//std::cout << "    " << temp_str << std::endl;
 		float exchange_rate;
 		try {
 			exchange_rate = std::stof(temp_str);
 		} catch (...){
 			std::cout << "    " << "Invalid value" << std::endl;
 		}
-		//std::cout << "    " << exchange_rate << std::endl;
 
 		// Add valid data to map
 
