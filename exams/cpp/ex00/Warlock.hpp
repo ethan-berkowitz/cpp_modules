@@ -1,23 +1,18 @@
-#include <string>
 #include <iostream>
+#include <string>
 
 class Warlock {
 	private:
-
 		std::string name;
 		std::string title;
-
 	public:
+		const std::string& getName() const;
+		const std::string& getTitle() const;
+
+		void setTitle (const std::string &title);
 
 		Warlock(std::string name, std::string title);
-		// Copy
-		// Copy Assignment
 		~Warlock();
-
-		std::string getName() const;
-		std::string getTitle() const;
-
-		void setTitle(const std::string &str);
 
 		void introduce() const;
 };

@@ -14,13 +14,19 @@ Expected files   : Warlock.cpp Warlock.hpp
 In the Warlock, SpellBook and TargetGenerator classes, the switch statement is
 FORBIDDEN and its use would result in a -42.
 
+//FIREBALL AND POLYMORPH------------------------------------------------------------
+
 Create the following two spells, on the same model as Fwoosh:
 
 * Fireball (Name: "Fireball", Effects: "burnt to a crisp")
 * Polymorph (Name: "Polymorph", Effects: "turned into a critter")
 
+//BRICKWALL---------------------------------------------------------------------------------
+
 In addition to this, just so he won't have only dummy to attack, let's make a
 new target for him, which will be the BrickWall (Type: "Inconspicuous Red-brick Wall").
+
+//SPELLBOOK---------------------------------------------------------------------------
 
 Now, make a SpellBook class, in canonical form, that can't be copied or instantiated
 by copy. It will have the following functions:
@@ -31,12 +37,16 @@ by copy. It will have the following functions:
 * ASpell* createSpell(string const &), that receives a string corresponding to
   the name of a spell, creates it, and returns it.
 
+//WARLOCK-----------------------------------------------------------------------------
+
 Modify the Warlock, now, make it have a spell book that will be created with
 him and destroyed with him. Also make his learnSpell and forgetSpell functions
 call those of the spell book.
 
 The launchSpell function will have to use the SpellBook to create the spell
 it's attempting to launch.
+
+// TARGET GENERATOR
 
 Make a TargetGenerator class, in canonical form, and as before,
 non-copyable.
