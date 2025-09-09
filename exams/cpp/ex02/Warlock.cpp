@@ -21,16 +21,17 @@ void Warlock::introduce() const{
 	std::cout << this->name << ": I am " << this->name << ", " << this->title << "!" << std::endl;
 }
 
+//SPELLS
+
 void Warlock::learnSpell(ASpell *spell){
-	this->spellMap[spell->getName()] = spell;
+	spellBook.learnSpell(spell);
 }
 
 void Warlock::forgetSpell(std::string name){
-	this->spellMap.erase(name);
+	spellBook.forgetSpell(name);
 }
 
 void Warlock::launchSpell(std::string spellName, ATarget &target){
-	if (this->spellMap.find(spellName) != this->spellMap.end()) {
-		this->spellMap[spellName]->launch(target);
-	}	
+	if (spellBook.createSpell(spellName) != NULL)
+		spellBook.createSpell(spellName)->launch(target);
 }

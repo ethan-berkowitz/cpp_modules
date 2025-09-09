@@ -34,7 +34,6 @@ ASpell has a constructor that takes its name and its effects, in that order.
 ATARGET-------------------------------------------------------------------------------------
 
 
-
 Now you will create an ATarget abstract class, in Coplien's form. It has a type
 attribute, which is a string, and its associated getter, getType, that return a
 reference to constant string.

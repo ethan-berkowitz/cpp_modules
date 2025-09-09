@@ -46,7 +46,7 @@ call those of the spell book.
 The launchSpell function will have to use the SpellBook to create the spell
 it's attempting to launch.
 
-// TARGET GENERATOR
+// TARGET GENERATOR------------------------------------------------------------------------
 
 Make a TargetGenerator class, in canonical form, and as before,
 non-copyable.
